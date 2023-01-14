@@ -11,9 +11,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     expose:
-    - "5432" 
+    - "5433" 
     ports:
-      - '5432:5432'
+      - '5433:5433'
     volumes: 
       - db:/var/lib/postgresql/data
       - type: bind
@@ -23,7 +23,7 @@ services:
   shadow-brreg:
     depends_on:
       - db
-    image: ubuntu:latest
+    image: node:18-alpine
     restart: always
     container_name: shardow-brreg
     environment:
