@@ -35,7 +35,7 @@ PGPASSWORD="postgres" psql -p 5433 -U postgres -d importdata -f /tmp/brreg_enhet
 wget --header='Accept: application/vnd.brreg.enhetsregisteret.enhet+vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' -O /tmp/enheter_alle.xlsx 'https://data.brreg.no/enhetsregisteret/api/enheter/lastned/regneark'
 
 # 6 Convert excel file enheter_alle.xlsx to csv format and name it enheter_alle.csv
-soffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76 /tmp/enheter_alle.xlsx -outdir /tmp -outfile enheter_alle.csv
+soffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76 /tmp/enheter_alle.xlsx --outdir /tmp --outfile enheter_alle.csv
 
 # 7 import csv file enheter_alle.csv into database
 PGPASSWORD="postgres" psql -p 5433 -d importdata --user=postgres -c "\COPY brreg_enheter_alle FROM '/tmp/enheter_alle.csv' delimiter ',' csv header;"
