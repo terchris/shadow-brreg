@@ -20,22 +20,6 @@ services:
         source: /Users/tec/learn/dockermountdir
         target: /hostdir
     command: -p 5433
-  shadow-brreg:
-    depends_on:
-      - db
-    image: node:18-alpine
-    restart: always
-    container_name: shardow-brreg
-    environment:
-      PMA_HOST: db
-      PMA_USER: postgres
-      PMA_PASSWORD: postgres
-    links:
-      - db      
-    volumes: 
-      - type: bind
-        source: /Users/tec/learn/dockermountdir
-        target: /hostdir  
 volumes:
   db:
     driver: local
