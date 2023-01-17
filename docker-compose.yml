@@ -1,10 +1,9 @@
 # runs postgres in docker connecting to the port 5433 so that it does not interfere with other postgres instances
-# this is the main database - all others are backups or test databases
-# mounts the host directory /Users/tec/learn/dockermountdir to hostdir in the container
 # start this with docker compose up -d
 version: '3.8'
 services:
   db:
+    container_name: shadow-brreg
     image: postgres:14.1-alpine
     restart: always
     environment:
@@ -16,9 +15,6 @@ services:
       - '5433:5433'
     volumes: 
       - db:/var/lib/postgresql/data
-      - type: bind
-        source: /Users/tec/learn/dockermountdir
-        target: /hostdir
     command: -p 5433
 volumes:
   db:
