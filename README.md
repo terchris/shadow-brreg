@@ -29,21 +29,19 @@ docker ps
 ```
 You should see something like:
 ```
-CONTAINER ID   IMAGE                  COMMAND                  CREATED        STATUS        PORTS                              NAMES
-48468bc8c9d9   dpage/pgadmin4         "/entrypoint.sh"         19 hours ago   Up 19 hours   443/tcp, 0.0.0.0:5050->80/tcp      pgadmin-pgadmin-1
-a0840f5b7b9a   postgres:14.1-alpine   "docker-entrypoint.s…"   22 hours ago   Up 19 hours   5432/tcp, 0.0.0.0:5433->5433/tcp   shadow-brreg-db-1
-6bb78d05c52c   postgres:14.1-alpine   "docker-entrypoint.s…"   3 days ago     Up 3 days     0.0.0.0:5432->5432/tcp             postgres-db-1
+CONTAINER ID   IMAGE                  COMMAND                  CREATED              STATUS              PORTS                              NAMES
+e9117ba5dd97   postgres:14.1-alpine   "docker-entrypoint.s…"   About a minute ago   Up About a minute   5432/tcp, 0.0.0.0:5433->5433/tcp   shadow-brreg
 ```
-The container is named `shadow-brreg-db-1`
+The container is named `shadow-brreg`
 
 * run the script that does it all
 ```
-docker exec -it shadow-brreg-db-1 /bin/bash -c "set -e; wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh -O /tmp/shadow-brreg-setup.sh && chmod +x /tmp/shadow-brreg-setup.sh && /tmp/shadow-brreg-setup.sh"
+docker exec -it shadow-brreg /bin/bash -c "set -e; wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh -O /tmp/shadow-brreg-setup.sh && chmod +x /tmp/shadow-brreg-setup.sh && /tmp/shadow-brreg-setup.sh"
 ```
 
 * check how many records are imported to the table 
 ```
-docker exec -it shadow-brreg-db-1 cat last_update.txt
+docker exec -it shadow-brreg cat last_update.txt
 ```
 The result should be something like this:
 ```
