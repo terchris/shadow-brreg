@@ -41,3 +41,22 @@ soffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76 enhet
 PGPASSWORD="postgres" psql -p 5433 -d importdata --user=postgres -c "\COPY brreg_enheter_alle FROM './enheter_alle.csv' delimiter ',' csv header;"
 
 
+notes
+
+
+docker exec -it shadow-brreg-db-1 mkdir /shadow && cd /shadow && pwd
+
+docker exec -it shadow-brreg-db-1  wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh && chmod +x /shadow-brreg-setup.sh && /shadow-brreg-setup.sh
+
+
+docker exec -it shadow-brreg-db-1 ls -la /shadow-brreg-setup.sh
+
+docker exec -it shadow-brreg-db-1 wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh -O /shadow-brreg-setup.sh
+
+
+&& chmod +x /shadowfiles/shadow-brreg-setup.sh && /shadowfiles/shadow-brreg-setup.sh
+
+
+
+
+docker exec -it shadow-brreg-db-1 /bin/bash -c "set -e; wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh -O /tmp/shadow-brreg-setup.sh && chmod +x /tmp/shadow-brreg-setup.sh && /tmp/shadow-brreg-setup.sh"
