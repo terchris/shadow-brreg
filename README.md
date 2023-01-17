@@ -9,7 +9,16 @@ It will spin up a container that holds a postgres database with all data from br
 
 The database is available on port 5433 on the host. This so that the port does not interfere with other postgresql instances you may have.  
 
-## how to use
+## how to set it up
+* copy the docker-compose.yml file to your local dir
+```
+wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/docker-compose.yml -O docker-compose.yml
+```
+or 
+```
+curl https://raw.githubusercontent.com/terchris/shadow-brreg/main/docker-compose.yml -o docker-compose.yml
+```
+
 * start the container
 ```
 docker compose up -d
@@ -43,5 +52,19 @@ Tue Jan 17 10:58:44 UTC 2023
 ---------
  1048575
 (1 row)
+```
+
+## to update with new data
+
+The system is not smart. It just downloads all data every time. 
+So to get new data you just run the script that does it all one more time.
+
+## passwords and security
+
+The database user is `postgres` and the password is `postgres` and everyone that has access to your host at port 5433 can add and delete stuff in your database.
+I suggest that you edit the script and change the password. Or safest you just stop the container when you are not using it.
+To stop it. Type this in the directory where you downloaded the docker-ompose.yml file:
+```
+docker compose down
 ```
 
