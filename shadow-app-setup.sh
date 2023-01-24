@@ -5,10 +5,10 @@
 
 echo "shadow-app-setup.sh starting"
 
-echo "Install git and cron"
+echo "1. Install git and cron"
 apk add git apk-cron
 
-echo "Install typescript"
+echo "2. Install typescript"
 npm install -g typescript
 
 
@@ -17,29 +17,30 @@ if [ -d "/shadow-brreg" ]; then
     rm -rf /shadow-brreg
 fi
 
-echo "Clone the shadow app from github"
+echo "3. Clone the shadow app from github"
 git clone --no-hardlinks https://github.com/terchris/shadow-brreg  
 
 
-echo "Make cron scripts executable"
+echo "4. Make cron scripts executable"
 chmod +x /shadow-brreg/app/shadow/shadow-cronjob.sh
 
 
-echo "Set up and compile the shadow app"
+echo "5. Set up and compile the shadow app"
 cd /shadow-brreg/app/shadow
-echo "yarn install"
+echo "6. yarn install"
 yarn install
-echo "yarn build"
+echo "7. yarn build"
 yarn build
 
 
 #yarn initdb
 
-echo "Add the job to cron"
+echo "8. Add the job to cron"
 /usr/bin/crontab /shadow-brreg/app/shadow/cronjobs.txt
 #write to log using  */1 * * * * /shadow-brreg/app/shadow/shadow-cronjob.sh >> /var/log/shadow-cronjob.log
 
-echo "Start cron and wait for jobs to run"
+echo "9. Start cron and wait for jobs to run"
+echo "======================================"
 /usr/sbin/crond -f -l 8
 # to list cron jobs: crontab -l
 
