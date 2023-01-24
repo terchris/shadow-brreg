@@ -22,7 +22,7 @@ const firstOrganizationsQuery = `SELECT * FROM brreg_enheter_alle`;
 async function main() {
 
 
-    dotenv.config();
+    dotenv.config(dotenv.config({ path: '../.env' }));
 
     let host = process.env.DATABASE_HOST;
     let port = process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT) : 5433;
