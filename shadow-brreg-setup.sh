@@ -47,12 +47,12 @@ rm /tmp/brreg_enheter_alle-table_definition.sql
 rm /tmp/shadow-brreg-setup.sh 
 
 # 9 create a file so that that file has the date and time of the last update
-date > last_update.txt
+date > /usr/src/shared/database_download_finished.txt
 
-# 10 add the number of records imported to the file last_update.txt
-PGPASSWORD="postgres" psql -p 5433 -d importdata --user=postgres -c "select count(*) from brreg_enheter_alle;" >> last_update.txt
+# 10 add the number of records imported to the file /usr/src/shared/database_download_finished.txt
+PGPASSWORD="postgres" psql -p 5433 -d importdata --user=postgres -c "select count(*) from brreg_enheter_alle;" >> /usr/src/shared/database_download_finished.txt
 
 # 11 display the content of the file last_update.txt
-cat last_update.txt
+cat /usr/src/shared/database_download_finished.txt
 
 # 12 
