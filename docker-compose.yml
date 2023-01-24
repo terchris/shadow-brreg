@@ -5,7 +5,7 @@ services:
   app:
     container_name: shadow-app
     build: app/shadow
-    command: ["cron", "-f"]
+    
 
 #docker exec -it shadow-app sh
 # docker container run -it shadow-app /bin/bash

@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 RUN apk add git
-RUN apk add cron
+RUN apk add apk-cron
 RUN npm install -g typescript
 RUN git clone --no-hardlinks https://github.com/terchris/shadow-brreg  
 
