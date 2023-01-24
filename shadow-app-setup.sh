@@ -21,10 +21,8 @@ echo "Clone the shadow app from github"
 git clone --no-hardlinks https://github.com/terchris/shadow-brreg  
 
 
-echo "Make scripts executable"
-chmod +x /shadow-brreg/app/shadow/shadow-appinstall.sh
+echo "Make cron scripts executable"
 chmod +x /shadow-brreg/app/shadow/shadow-cronjob.sh
-chmod +x /shadow-brreg/app/shadow/shadow-cronstart.sh
 
 
 echo "Set up and compile the shadow app"
@@ -34,15 +32,15 @@ yarn install
 echo "yarn build"
 yarn build
 
-#ls ./dist -la
 
 #yarn initdb
 
 echo "Add the job to cron"
 /usr/bin/crontab /shadow-brreg/app/shadow/cronjobs.txt
+#write to log using  */1 * * * * /shadow-brreg/app/shadow/shadow-cronjob.sh >> /var/log/shadow-cronjob.log
 
 echo "Start cron and wait for jobs to run"
 /usr/sbin/crond -f -l 8
-
+# to list cron jobs: crontab -l
 
 echo "shadow-setup.sh done"

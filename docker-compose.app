@@ -2,27 +2,11 @@
 # start this with docker compose up -d
 version: '3.8'
 services:
-  db:
-    container_name: shadow-brreg
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    expose:
-    - "5433" 
-    ports:
-      - '5433:5433'
-    volumes: 
-      - db:/var/lib/postgresql/data
-    command: -p 5433
   app:
     container_name: shadow-app
     image: node:lts-alpine
     command: ["sh","-c","wget -O shadow-app-setup.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-app-setup.sh && chmod +x shadow-app-setup.sh && ./shadow-app-setup.sh"]    
-volumes:
-  db:
-    driver: local    
+    
     
 
 
