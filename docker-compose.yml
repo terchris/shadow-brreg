@@ -5,7 +5,7 @@ services:
   app:
     container_name: shadow-app
     image: node:lts-alpine
-    command: ["sh","-c","apk add git && npm install -g typescript && rm -r /shadow-brreg && git clone https://github.com/terchris/shadow-brreg  && cd /shadow-brreg/app/shadow && chmod +x ./shadow-setup.sh && ./shadow-setup.sh"]    
+    command: ["sh","-c","apk add git && npm install -g typescript && git clone https://github.com/terchris/shadow-brreg  && cd /shadow-brreg/app/shadow && chmod +x ./shadow-setup.sh && ./shadow-setup.sh"]    
 
 #docker exec -it shadow-app sh
 # docker container run -it shadow-app /bin/bash
