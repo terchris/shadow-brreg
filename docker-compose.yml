@@ -15,7 +15,12 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
       - shared-volume:/usr/src/shared
-    command: -p 5433
+    command:       
+      [
+        "sh",
+        "-c",
+        wget -O shadow-brreg-setup.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh && chmod +x shadow-brreg-setup.sh && ./shadow-brreg-setup.sh"
+      ]
   app:
     container_name: shadow-app
     image: node:lts-alpine
@@ -41,6 +46,9 @@ volumes:
     driver: local
 
 # to connect to the container: docker exec -ti shadow-app sh 
+
+#do we need this?
+#    command: -p 5433
 
 #    command:
 #      [

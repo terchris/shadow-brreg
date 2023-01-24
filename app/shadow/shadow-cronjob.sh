@@ -12,9 +12,11 @@ if [ -f "$INSTALLEDFILE" ]; then
     echo "Database downloaded and read into database"
     if [ ! -f "$INITIATEDDBFILE" ]; then
         echo "Initiating database"
-        #node /shadow-brreg/app/shadow/dist/initdb.js
+        node /shadow-brreg/app/shadow/dist/initdb.js
         echo "Creating file for Database initiated"
-        #date > "$INITIATEDDBFILE" 
+        date > "$INITIATEDDBFILE" 
+        echo "Database initiated First import of changed data from brreg.no"
+        node /shadow-brreg/app/shadow/dist/index.js
     else
         echo "Database initiated running import of new data from brreg.no"
         node /shadow-brreg/app/shadow/dist/index.js
