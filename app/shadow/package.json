@@ -19,7 +19,10 @@
   },
   "scripts": {
     "build": "tsc",
-    "develop": "tsc -w"
+    "develop": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/index.js",
+    "init": "node ./dist/init.js"
   },
   "description": "typescript/node code for accessing the postgres shadow copy of brreg.no (brønnøysundregistrene)",
   "bugs": {

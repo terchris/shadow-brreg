@@ -6,5 +6,7 @@ ls -la
 
 yarn install
 yarn build
+yarn init
+yarn start
 echo "shadow-setup.sh done"
-ls -la
+ls ./dist -la
