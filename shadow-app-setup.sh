@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# clones the shadow app from github
-# and installs it
+# clones the shadow app from github and installs it
+# Maintanter terchris Terje Christensen
+
 
 echo "shadow-app-setup.sh starting"
 

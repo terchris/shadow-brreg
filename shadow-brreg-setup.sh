@@ -1,4 +1,4 @@
-#
+#!/bin/sh
 # shadow-brreg-setup.sh is a script that download all data from Brønnøysundregistrene (brreg.no)
 # and import it into a postgres database
 # running this script will take some time as it downloads all data, converts it to csv and imports it into  the database
@@ -9,6 +9,15 @@
 # To download and run this script type:
 
 #docker exec -it shadow-brreg-db-1 wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh && chmod +x shadow-brreg-setup.sh && ./shadow-brreg-setup.sh
+
+INSTALLEDFILE=/usr/src/shared/database_download_finished.txt
+# if /usr/src/shared/database_download_finished.txt exists then the database is already downloaded and you can skip this step
+if [ -f "$INSTALLEDFILE" ]; then 
+    echo "Database already downloaded and read into database"
+else
+
+
+
 
 # install libreoffice - it is used for converting xls to csv
 apk update && apk add libreoffice
@@ -47,12 +56,13 @@ rm /tmp/brreg_enheter_alle-table_definition.sql
 rm /tmp/shadow-brreg-setup.sh 
 
 # 9 create a file so that that file has the date and time of the last update
-date > /usr/src/shared/database_download_finished.txt
+date > "$INSTALLEDFILE"
 
 # 10 add the number of records imported to the file /usr/src/shared/database_download_finished.txt
-PGPASSWORD="postgres" psql -p 5433 -d importdata --user=postgres -c "select count(*) from brreg_enheter_alle;" >> /usr/src/shared/database_download_finished.txt
+PGPASSWORD="postgres" psql -p 5433 -d importdata --user=postgres -c "select count(*) from brreg_enheter_alle;" >> "$INSTALLEDFILE"
+
+
+fi
 
 # 11 display the content of the file last_update.txt
-cat /usr/src/shared/database_download_finished.txt
-
-# 12 
+cat "$INSTALLEDFILE"
