@@ -21,7 +21,7 @@ RUN npm install -g typescript
 #RUN /usr/bin/crontab /cronjobs.txt
 
 # start cron
-#CMD ["/shadow-brreg/app/shadow/shadow-cronstart.sh"]
+CMD ["/shadow-brreg/app/shadow/shadow-cronstart.sh"]
 
 
 
