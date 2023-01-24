@@ -1,3 +1,4 @@
+#!/bin/sh
 # shadow-cron.sh
 # this script is started by the cron job
 

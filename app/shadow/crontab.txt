@@ -1,0 +1,1 @@
+*/1 * * * * /shadow-brreg/app/shadow/shadow-cron.sh >> /var/log/script.log

@@ -1,0 +1,23 @@
+FROM node:lts-alpine
+RUN apk add git
+RUN apk add cron
+RUN npm install -g typescript
+RUN git clone --no-hardlinks https://github.com/terchris/shadow-brreg  
+
+# yarn build the node app
+RUN /shadow-brreg/app/shadow/shadow-appinstall.sh
+
+# make scripts executable
+RUN chmod +x /shadow-brreg/app/shadow/shadow-appinstall.sh
+RUN chmod +x /shadow-brreg/app/shadow/shadow-cronjob.sh
+RUN chmod +x /shadow-brreg/app/shadow/shadow-cronstart.sh
+
+# start cron
+CMD ["/shadow-brreg/app/shadow/shadow-cronstart.sh"]
+
+
+
+
+#RUN cd /shadow-brreg/app/shadow
+#RUN ls -la 
+#RUN pwd

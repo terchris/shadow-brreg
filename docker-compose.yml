@@ -4,11 +4,18 @@ version: '3.8'
 services:
   app:
     container_name: shadow-app
-    image: node:lts-alpine
-    command: ["sh","-c","apk add git && npm install -g typescript && git clone --no-hardlinks https://github.com/terchris/shadow-brreg  && cd /shadow-brreg/app/shadow && chmod +x ./shadow-setup.sh && ./shadow-setup.sh"]    
+    build: app/shadow
+    command: ["cron", "-f"]
 
 #docker exec -it shadow-app sh
 # docker container run -it shadow-app /bin/bash
 
-#&& rm -r /shadow-brreg
-# command: ["sh","-c","apk add git && git clone https://github.com/terchris/shadow-brreg && cd /shadow-brreg/app/shadow && yarn && yarn build"]    
+
+#services:
+#  app:
+#    container_name: shadow-app
+#    image: node:lts-alpine
+#    command: ["sh","-c","apk add git && npm install -g typescript && git clone --no-hardlinks https://github.com/terchris/shadow-brreg  && cd /shadow-brreg/app/shadow && chmod +x ./shadow-setup.sh && ./shadow-setup.sh"]    
+
+#docker-compose exec shadow-app sh
+#docker exec -ti shadow-app /bin/bash
