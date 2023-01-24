@@ -16,36 +16,44 @@ async function getOrganizations(query: string, limit: number): Promise<any[]> {
     }
 }
 
-const numberOfOrganizations = 10;
-const firstOrganizationsQuery = `SELECT * FROM brreg_enheter_alle`;
 
-async function main() {
+async function testDatabaseConnection() {
+    const numberOfOrganizations = 10;
+    const firstOrganizationsQuery = `SELECT * FROM brreg_enheter_alle`;
+    
+    let isOK = false;
 
-
-    dotenv.config(dotenv.config({ path: '../.env' }));
-
+    dotenv.config();
     let host = process.env.DATABASE_HOST;
     let port = process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT) : 5433;
     let user = process.env.DATABASE_USER;
     let password = process.env.DATABASE_PASSWORD;
     let database = process.env.DATABASE_NAME;
 
-    console.log("host: ", host);
-    console.log("port: ", port);
-    console.log("user: ", user);
-    console.log("password: ", password);
-    console.log("database: ", database);
 
-    let dateNow = new Date();
-    console.log("Testing db connection ... dateNow: ", dateNow);
-    let firstRecords = await getOrganizations(firstOrganizationsQuery, numberOfOrganizations);
+    if (host && port && user && password && database) {
+        console.log("All database variables are set");
+        let dateNow = new Date();
+        console.log("Testing db connection ... dateNow: ", dateNow);
+        let firstRecords = await getOrganizations(firstOrganizationsQuery, numberOfOrganizations);
 
-    //if firstRecords are an array then we have a connection to the database
-    if (Array.isArray(firstRecords)) {
-        console.log("Database connection is ok");
+        //if firstRecords are an array then we have a connection to the database
+        if (Array.isArray(firstRecords)) {
+            console.log("Database connection is ok");
+            let isOK = true;
+        } else {
+            console.log("ERROR: Database connection is not ok");
+        }
     } else {
-        console.log("ERROR: Database connection is not ok");
+        console.log("ERROR: Not all database variables are set");
+        console.log("host: ", host);
+        console.log("port: ", port);
+        console.log("user: ", user);
+        console.log("password: ", password);
+        console.log("database: ", database);
     }
+
 }
 
-main();
+
+let ok = testDatabaseConnection();
