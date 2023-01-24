@@ -13,7 +13,10 @@ RUN chmod +x /shadow-brreg/app/shadow/shadow-cronstart.sh
 # yarn build the node app
 RUN /shadow-brreg/app/shadow/shadow-appinstall.sh
 
+COPY /shadow-brreg/app/shadow/jalla.txt /jalla.txt
+
 # add the cronjob to cron
+RUN chmod +x /shadow-brreg/app/shadow/cronjobs.txt
 COPY /shadow-brreg/app/shadow/cronjobs.txt /cronjobs.txt
 RUN /usr/bin/crontab /cronjobs.txt
 
