@@ -5,7 +5,7 @@ services:
   app:
     container_name: shadow-app
     image: node:lts-alpine
-    command: ["sh","-c","wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-app-setup.sh && chmod +x shadow-app-setup.sh && ./shadow-app-setup.sh"]    
+    command: ["sh","-c","wget -O https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-app-setup.sh && chmod +x shadow-app-setup.sh && ./shadow-app-setup.sh"]    
     
     
 

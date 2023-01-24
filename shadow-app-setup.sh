@@ -29,18 +29,20 @@ chmod +x /shadow-brreg/app/shadow/shadow-cronstart.sh
 
 echo "Set up and compile the shadow app"
 cd /shadow-brreg/app/shadow
+echo "yarn install"
 yarn install
+echo "yarn build"
 yarn build
 
-ls ./dist -la
+#ls ./dist -la
 
 #yarn initdb
 
-echo "Set up the cron job"
+echo "Add the job to cron"
 /usr/bin/crontab /shadow-brreg/app/shadow/cronjobs.txt
 
-echo "Start the cron job"
-#/usr/sbin/crond -f -l 8
+echo "Start cron and wait for jobs to run"
+/usr/sbin/crond -f -l 8
 
 
 echo "shadow-setup.sh done"
