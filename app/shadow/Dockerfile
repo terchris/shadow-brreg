@@ -14,7 +14,8 @@ RUN chmod +x /shadow-brreg/app/shadow/shadow-cronstart.sh
 RUN /shadow-brreg/app/shadow/shadow-appinstall.sh
 
 # add the cronjob to cron
-RUN /usr/bin/crontab /shadow-brreg/app/shadow/cronjobs.txt
+COPY /shadow-brreg/app/shadow/cronjobs.txt /cronjobs.txt
+RUN /usr/bin/crontab /cronjobs.txt
 
 # start cron
 CMD ["/shadow-brreg/app/shadow/shadow-cronstart.sh"]
