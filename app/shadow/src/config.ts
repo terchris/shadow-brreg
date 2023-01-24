@@ -7,9 +7,9 @@ import * as dotenv from 'dotenv';
 dotenv.config(dotenv.config({ path: '../.env' }));
 
 const pool = new Pool({
-    host: process.env.DATABASE_HOST ? "db",
+    host: process.env.DATABASE_HOST,
     port: process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT) : 5433,
-    user: process.env.DATABASE_USER ? "postgres" : "postgres",
+    user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME
 });
