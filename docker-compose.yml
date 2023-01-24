@@ -1,22 +1,13 @@
-# runs postgres in docker connecting to the port 5433 so that it does not interfere with other postgres instances
+
 # start this with docker compose up -d
 version: '3.8'
 services:
-  db:
-    container_name: shadow-brreg
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    expose:
-    - "5433" 
-    ports:
-      - '5433:5433'
-    volumes: 
-      - db:/var/lib/postgresql/data
-    command: -p 5433
-volumes:
-  db:
-    driver: local
+  app:
+    container_name: shadow-app
+    image: node:lts-alpine
+    command: ["sh","-c","apk add git && git clone https://github.com/terchris/shadow-brreg && cd shadow-brreg && ls -la"]    
 
+#docker exec -it shadow-app sh
+# docker container run -it shadow-app /bin/bash
+
+# command: ["sh","-c","apk add git && git clone https://github.com/terchris/shadow-brreg && cd /shadow-brreg/app/shadow && yarn && yarn build"]    

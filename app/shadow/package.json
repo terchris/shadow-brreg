@@ -1,0 +1,32 @@
+{
+  "name": "shadow-brreg-node",
+  "version": "0.0.2",
+  "main": "index.js",
+  "repository": "git+https://github.com/terchris/shadow-brreg.git",
+  "author": "Terje Christensen <terchris@users.noreply.github.com>",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@types/pg": "^8.6.6",
+    "@types/pg-format": "^1.0.2",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "axios": "^1.2.3",
+    "dotenv": "^16.0.3",
+    "pg": "^8.8.0",
+    "pg-format": "^1.0.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "develop": "tsc -w"
+  },
+  "description": "typescript/node code for accessing the postgres shadow copy of brreg.no (brønnøysundregistrene)",
+  "bugs": {
+    "url": "https://github.com/terchris/shadow-brreg/issues"
+  },
+  "homepage": "https://github.com/terchris/shadow-brreg-node#readme",
+  "keywords": [
+    "brreg"
+  ]
+}

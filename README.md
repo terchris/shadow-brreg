@@ -66,3 +66,10 @@ To stop it. Type this in the directory where you downloaded the docker-ompose.ym
 docker compose down
 ```
 
+## how to access the database
+
+databasename: importdata
+user: postgres
+password: postgres
+table: brreg_enheter_alle
+port: 5433

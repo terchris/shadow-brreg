@@ -4,7 +4,7 @@
 # running this script will take some time as it downloads all data, converts it to csv and imports it into  the database
 # Maintanter terchris Terje Christensen
 
-# To use it you mus have docker installed and running
+# To use it you must have docker installed and running
 # do this by typing: docker compose up -d
 # To download and run this script type:
 
@@ -54,3 +54,5 @@ PGPASSWORD="postgres" psql -p 5433 -d importdata --user=postgres -c "select coun
 
 # 11 display the content of the file last_update.txt
 cat last_update.txt
+
+# 12 
