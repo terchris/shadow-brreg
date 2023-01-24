@@ -3,6 +3,9 @@
 # code for installing the shadow app
 
 echo "shadow-appinstall.sh"
+if [ -d "/shadow-brreg" ]; then 
+  rm -rf /shadow-brreg
+fi
 git clone --no-hardlinks https://github.com/terchris/shadow-brreg  
 
 # make scripts executable
