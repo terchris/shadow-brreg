@@ -5,8 +5,8 @@ services:
   app:
     container_name: shadow-app
     image: node:lts-alpine
-    command: ["sh","-c","git clone --no-hardlinks https://github.com/terchris/shadow-brreg /shadow-brreg && cd /shadow-brreg/app/shadow && chmod +x ./shadow-appinstall.sh && ./shadow-appinstall.sh"]    
-    wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-app-setup.sh && chmod +x shadow-app-setup.sh && ./shadow-app-setup.sh
+    command: ["sh","-c","wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-app-setup.sh && chmod +x shadow-app-setup.sh && ./shadow-app-setup.sh"]    
+    
     
 
 #docker exec -it shadow-app sh
