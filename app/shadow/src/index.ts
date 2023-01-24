@@ -16,8 +16,8 @@ import axios from 'axios';
 import * as dotenv from 'dotenv';
 import { IBrregEnheterAlle, IOppdaterteEnheter } from './typedefinitions';
 
-const BrregAPIPageSize = "5";
-const changesToProcessForEachRead = 10;
+const BrregAPIPageSize = "100";
+const changesToProcessForEachRead = 100;
 let globalUpdateCounter = 0;
 
 
