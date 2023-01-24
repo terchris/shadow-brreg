@@ -5,6 +5,13 @@
 
 echo "shadow-app-setup.sh starting"
 
+echo "Install git and cron"
+apk add git apk-cron
+
+echo "Install typescript"
+npm install -g typescript
+
+
 if [ -d "/shadow-brreg" ]; then 
     echo "Remove old shadow-brreg folder"
     rm -rf /shadow-brreg
