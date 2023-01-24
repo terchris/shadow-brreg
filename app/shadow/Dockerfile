@@ -4,7 +4,6 @@ RUN apk add apk-cron
 RUN npm install -g typescript
 RUN git clone --no-hardlinks https://github.com/terchris/shadow-brreg  
 
-
 # make scripts executable
 RUN chmod +x /shadow-brreg/app/shadow/shadow-appinstall.sh
 RUN chmod +x /shadow-brreg/app/shadow/shadow-cronjob.sh
@@ -13,7 +12,7 @@ RUN chmod +x /shadow-brreg/app/shadow/shadow-cronstart.sh
 # yarn build the node app
 RUN /shadow-brreg/app/shadow/shadow-appinstall.sh
 
-COPY /shadow-brreg/app/shadow/jalla.txt /jalla.txt
+COPY /shadow-brreg/app/shadow/new.file /new.file
 
 # add the cronjob to cron
 RUN chmod +x /shadow-brreg/app/shadow/cronjobs.txt
