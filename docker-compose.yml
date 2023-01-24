@@ -8,10 +8,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    expose:
-      - "5433"
     ports:
-      - '5433:5433'
+      - "5433:5432"
     volumes:
       - db:/var/lib/postgresql/data
       - shared-volume:/usr/src/shared
@@ -19,14 +17,14 @@ services:
       [
         "sh",
         "-c",
-        wget -O shadow-brreg-setup.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh && chmod +x shadow-brreg-setup.sh && ./shadow-brreg-setup.sh"
+        "wget -O shadow-brreg-setup.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh && chmod +x shadow-brreg-setup.sh && ./shadow-brreg-setup.sh"
       ]
   app:
     container_name: shadow-app
     image: node:lts-alpine
     environment:
       - DATABASE_HOST=db
-      - DATABASE_PORT=5433
+      - DATABASE_PORT=5432
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
       - DATABASE_NAME=importdata
