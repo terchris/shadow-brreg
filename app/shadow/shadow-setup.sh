@@ -4,3 +4,7 @@ echo "shadow-setup.sh"
 pwd
 ls -la
 
+yarn install
+yarn build
+echo "shadow-setup.sh done"
+ls -la
