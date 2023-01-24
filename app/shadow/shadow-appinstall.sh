@@ -2,13 +2,18 @@
 # shadow-appinstall.sh
 # code for installing the shadow app
 
-echo "shadow-appinstall.sh"
+echo "shadow-appinstall.sh starting"
+
 if [ -d "/shadow-brreg" ]; then 
-  rm -rf /shadow-brreg
+    echo "Remove old shadow-brreg folder"
+    rm -rf /shadow-brreg
 fi
+
+echo "Clone the shadow app from github"
 git clone --no-hardlinks https://github.com/terchris/shadow-brreg  
 
-# make scripts executable
+
+echo "Make scripts executable"
 chmod +x /shadow-brreg/app/shadow/shadow-appinstall.sh
 chmod +x /shadow-brreg/app/shadow/shadow-cronjob.sh
 chmod +x /shadow-brreg/app/shadow/shadow-cronstart.sh
