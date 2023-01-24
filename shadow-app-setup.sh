@@ -40,7 +40,7 @@ echo "Set up the cron job"
 /usr/bin/crontab /shadow-brreg/app/shadow/cronjobs.txt
 
 echo "Start the cron job"
-/usr/sbin/crond -f -l 8
+#/usr/sbin/crond -f -l 8
 
 
 echo "shadow-setup.sh done"
