@@ -144,6 +144,7 @@ fi
 
 echo "8. Add the job to cron"
 /usr/bin/crontab "$GITHUBDIR/$CRONJOBSFILE"
+# you must set the absolute path to the script in the cronjob file
 
 echo "9. Start cron and wait for jobs to run"
 echo "======================================"
