@@ -8,8 +8,10 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    expose:
+    - "5433" 
     ports:
-      - "5433:5432"
+      - '5433:5433'
     volumes:
       - db:/var/lib/postgresql/data
     command: -p 5433
