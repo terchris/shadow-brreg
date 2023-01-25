@@ -42,15 +42,13 @@ services:
       PGADMIN_DEFAULT_EMAIL: postgres@localhost
       PGADMIN_DEFAULT_PASSWORD: postgres
     volumes:
-      - pgadmin:/var/lib/pgadmin
+      - app:/var/lib/pgadmin
     restart: unless-stopped
 
 volumes:
   db:
     driver: local
   app:
-    driver: local
-  pgadmin:
     driver: local
 
 # to connect to the container: docker exec -ti shadow-app sh 
