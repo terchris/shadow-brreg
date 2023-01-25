@@ -4,6 +4,7 @@
 
 
 INITIATEDDBFILE=/usr/src/app/database_initiated.txt
+GITHUBDIR=/usr/src/app/shadow-brreg
 
 echo "shadow-cron.sh started"
 
@@ -11,7 +12,7 @@ echo "shadow-cron.sh started"
         echo "Database not initiated ... we must wait"    
     else
         echo "Database ready, starting shadow app"
-        node /shadow-brreg/app/shadow/dist/index.js
+        node "$GITHUBDIR/app/shadow/dist/index.js
     fi
 
 echo "shadow-cron.sh finished"
