@@ -12,7 +12,7 @@ echo "shadow-cron.sh started"
         echo "Database not initiated ... we must wait"    
     else
         echo "Database ready, starting shadow app"
-        node "$GITHUBDIR/app/shadow/dist/index.js
+        node "$GITHUBDIR/app/shadow/dist/index.js"
     fi
 
 echo "shadow-cron.sh finished"

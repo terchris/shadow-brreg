@@ -86,8 +86,10 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     echo "!! If brreg.no created the file in the open cvs format and compressed it we would save:  !!"
     echo "!! time, bandwith, and disk space. !!"
     echo "!! tell them what you think about this by sendng them an email to media@brreg.no !!"
+    start=`date +%s`
     xlsx2csv "$DOWNLOADDIR/$BRREGENHETERXLSFILE" "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
-
+    end=`date +%s`
+    echo You wasted  `expr $end - $start` seconds of your life converting the file
     
 
     echo "8e. wait until the databse in the other container is ready" 
@@ -103,54 +105,48 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
 
     echo "8g. create the database: $DATABASE_NAME"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" --user="$DATABASE_USER" -c "CREATE DATABASE $DATABASE_NAME OWNER $DATABASE_USER;"
-
     
 
-    #echo "8h. Drop the table brreg_enheter_alle if it exists"
-    #PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" --user="$DATABASE_USER" -c "DROP TABLE brreg_enheter_alle;"
-
-    
-
-    echo "8i. create the table brreg_enheter_alle usinf definition in $BRREGTABLEDEFINITIONFILE"
+    echo "8h. create the table brreg_enheter_alle using definition in $BRREGTABLEDEFINITIONFILE"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -f "$GITHUBDIR"/"$BRREGTABLEDEFINITIONFILE"
 
     
 
-    echo "8j. Import the csv file $BRREGENHETERCSVFILE to the database"
+    echo "8i. Import the csv file $BRREGENHETERCSVFILE to the database"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "\copy brreg_enheter_alle FROM '$DOWNLOADDIR/$BRREGENHETERCSVFILE' DELIMITER ',' CSV HEADER;"
     
     
 
-    echo "8k. Create a file $INITIATEDDBFILE to indicate that the database is initiated"
+    echo "8j. Create a file $INITIATEDDBFILE to indicate that the database is initiated"
     date > "$INITIATEDDBFILE"
 
     
 
-    echo "8l. Delete the downloaded files: $BRREGENHETERXLSFILE and $BRREGENHETERCSVFILE"
-    #rm "$DOWNLOADDIR/$BRREGENHETERXLSFILE"
-    #rm "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
+    echo "8k. Delete the downloaded files: $BRREGENHETERXLSFILE and $BRREGENHETERCSVFILE"
+    rm "$DOWNLOADDIR/$BRREGENHETERXLSFILE"
+    rm "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
 
     
 
-    echo "8m. Add the number of records imported to the $INITIATEDDBFILE file"
+    echo "8l. Add the number of records imported to the $INITIATEDDBFILE file"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT COUNT(*) FROM brreg_enheter_alle;" >> "$INITIATEDDBFILE"
     
     
 
-    echo "8n. Display the $INITIATEDDBFILE file"
+    echo "8m. Display the $INITIATEDDBFILE file"
     cat "$INITIATEDDBFILE"
 
     
 
-    echo "8o. Add and initiate tables used by the node app to keep the database updated"
+    echo "8n. Add and initiate tables used by the node app to keep the database updated"
     node "$GITHUBDIR/app/shadow/dist/initdb.js"
 fi
 
-echo "8. Add the job to cron"
+echo "9. Add the job to cron"
 /usr/bin/crontab "$GITHUBDIR/$CRONJOBSFILE"
 # you must set the absolute path to the script in the cronjob file
 
-echo "9. Start cron and wait for jobs to run"
+echo "10. Start cron and wait for jobs to run"
 echo "======================================"
 /usr/sbin/crond -f -l 8
 # to list cron jobs: crontab -l
