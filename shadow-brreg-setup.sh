@@ -12,7 +12,7 @@
 
 
 # first we need to wait until postgres is finished installing and is ready 
-until pg_isready
+until pg_isready -h db -p 5432 -U postgres
 do
     echo "."
     sleep 1
