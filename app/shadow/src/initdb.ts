@@ -45,7 +45,7 @@ async function initiateUrbalurbaStatus() {
 
 async function initiateOppdaterteEnheter() : Promise<boolean> {
     try {
-        await pool.query(`CREATE TABLE IF NOT EXISTS oppdaterteEnheter (oppdateringsid INTEGER PRIMARY KEY, dato TIMESTAMP, organisasjonsnummer VARCHAR(255), endringstype VARCHAR(255), urb_processed TIMESTAMP);`);
+        await pool.query(`CREATE TABLE IF NOT EXISTS oppdaterteEnheter (oppdateringsid INTEGER PRIMARY KEY, dato TIMESTAMP, organisasjonsnummer VARCHAR(255), endringstype VARCHAR(255), urb_processed TIMESTAMP, urb_processed_status VARCHAR(255));`);
         
         console.log("oppdaterteEnheter table is ready to receive data");
         return true;
