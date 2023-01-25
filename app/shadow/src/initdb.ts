@@ -45,8 +45,8 @@ async function initiateUrbalurbaStatus() {
 
 async function initiateOppdaterteEnheter() : Promise<boolean> {
     try {
-        await pool.query(`CREATE TABLE IF NOT EXISTS oppdaterteEnheter (oppdateringsid INTEGER PRIMARY KEY, dato TIMESTAMPZ, organisasjonsnummer VARCHAR(255), endringstype VARCHAR(255), urb_processed TIMESTAMPZ);`);
-        //await pool.query(`ALTER TABLE oppdaterteEnheter ADD COLUMN IF NOT EXISTS urb_processed TIMESTAMPZ;`);
+        await pool.query(`CREATE TABLE IF NOT EXISTS oppdaterteEnheter (oppdateringsid INTEGER PRIMARY KEY, dato TIMESTAMP, organisasjonsnummer VARCHAR(255), endringstype VARCHAR(255), urb_processed TIMESTAMP);`);
+        
         console.log("oppdaterteEnheter table is ready to receive data");
         return true;
     } catch (err) {
@@ -72,9 +72,9 @@ async function initiateBrregEnheterAlle() {
             await pool.query(`
                 ALTER TABLE brreg_enheter_alle
                 ADD COLUMN urb_brreg_oppdateringsid INTEGER,
-                ADD COLUMN urb_brreg_update_date TIMESTAMPZ,
+                ADD COLUMN urb_brreg_update_date TIMESTAMP,
                 ADD COLUMN urb_brreg_endringstype VARCHAR(255),
-                ADD COLUMN urb_sync_date TIMESTAMPZ;
+                ADD COLUMN urb_sync_date TIMESTAMP;
             `);
             console.log("Fields added successfully to brreg_enheter_alle table");
         } else {

@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     expose:
-    - "5433" 
+      - "5433"
     ports:
       - '5433:5433'
     volumes:
@@ -18,6 +18,8 @@ services:
   app:
     container_name: shadow-app
     image: node:lts-alpine
+    depends_on:
+      - db
     environment:
       - DATABASE_HOST=db
       - DATABASE_PORT=5433
@@ -32,21 +34,23 @@ services:
         "-c",
         "wget -O shadow-init.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-init.sh && chmod +x shadow-init.sh && ./shadow-init.sh"
       ]
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@localhost
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    restart: unless-stopped
+
 volumes:
   db:
     driver: local
   app:
     driver: local
+  pgadmin:
+    driver: local
 
 # to connect to the container: docker exec -ti shadow-app sh 
-
-#do we need this?
-#    command: -p 5433
-
-#    command:
-#      [
-#        "sh",
-#        "-c",
-#        "wget -O shadow-brreg-setup.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh && chmod +x shadow-brreg-setup.sh && ./shadow-brreg-setup.sh"
-#      ]
-      

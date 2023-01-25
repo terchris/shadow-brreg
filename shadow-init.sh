@@ -81,8 +81,10 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     
 
     echo "8d. TAKES TIME to convert excel file $BRREGENHETERXLSFILE to csv format and name it $BRREGENHETERCSVFILE"
-    echo "!! brreg.no is a Microsoft shop and prefer to use the proprietary Microsoft Office format. We need to convert it to a more open format. This takes time. !!"
-    echo "!! If brreg.no created the file in the open cvs format and compressed it we would save time, bandwith, and disk space. !!"
+    echo "!! brreg.no is a Microsoft shop and prefer to use the proprietary Microsoft Office format. !!"
+    echo "!! We need to convert it to a more open format. This takes time. !!"
+    echo "!! If brreg.no created the file in the open cvs format and compressed it we would save:  !!"
+    echo "!! time, bandwith, and disk space. !!"
     echo "!! tell them what you think about this by sendng them an email to media@brreg.no !!"
     xlsx2csv "$DOWNLOADDIR/$BRREGENHETERXLSFILE" "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
 
