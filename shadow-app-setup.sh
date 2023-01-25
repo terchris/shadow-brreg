@@ -7,7 +7,7 @@
 echo "shadow-app-setup.sh starting"
 
 echo "1. Install git and cron"
-apk add git apk-cron
+apk add git apk-cron postgresql-client
 
 echo "2. Install typescript"
 npm install -g typescript
