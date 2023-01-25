@@ -81,7 +81,9 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     
 
     echo "8d. TAKES TIME to convert excel file $BRREGENHETERXLSFILE to csv format and name it $BRREGENHETERCSVFILE"
-    #soffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76 "$DOWNLOADDIR/$BRREGENHETERXLSFILE" --outdir "$DOWNLOADDIR" 
+    echo "!! brreg.no is a Microsoft shop and prefer to use the proprietary Microsoft Office format. We need to convert it to a more open format. This takes time. !!"
+    echo "!! If brreg.no created the file in the open cvs format and compressed it we would save time, bandwith, and disk space. !!"
+    echo "!! tell them what you think about this by sendng them an email to media@brreg.no !!"
     xlsx2csv "$DOWNLOADDIR/$BRREGENHETERXLSFILE" "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
 
     
@@ -108,7 +110,7 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     
 
     echo "8i. create the table brreg_enheter_alle usinf definition in $BRREGTABLEDEFINITIONFILE"
-    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -f "$GITHUBDIR "/"$BRREGTABLEDEFINITIONFILE"
+    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -f "$GITHUBDIR"/"$BRREGTABLEDEFINITIONFILE"
 
     
 
