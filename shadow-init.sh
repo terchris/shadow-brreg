@@ -16,7 +16,21 @@ BRREGENHETERCSVFILE=enheter_alle.csv
 BRREGTABLEDEFINITIONFILE=brreg_enheter_alle-table_definition.sql
 CRONJOBSFILE=app/shadow/cronjobs.txt
 
-echo "shadow-init.sh starting"
+echo "shadow-init.sh starting. This is the variables used:"
+echo "INITIATEDDBFILE=$INITIATEDDBFILE"
+echo "GITHUBDIR=$GITHUBDIR"
+echo "DOWNLOADDIR=$DOWNLOADDIR"
+echo "BRREGENHETERXLSFILE=$BRREGENHETERXLSFILE"
+echo "BRREGENHETERCSVFILE=$BRREGENHETERCSVFILE"
+echo "BRREGTABLEDEFINITIONFILE=$BRREGTABLEDEFINITIONFILE"
+echo "CRONJOBSFILE=$CRONJOBSFILE"
+echo "DATABASE_HOST=$DATABASE_HOST"
+echo "DATABASE_PORT=$DATABASE_PORT"
+echo "DATABASE_USER=$DATABASE_USER"
+echo "DATABASE_PASSWORD=$DATABASE_PASSWORD"
+echo "DATABASE_NAME=$DATABASE_NAME"
+
+
 
 echo "1. Install git and cron"
 apk add git apk-cron postgresql-client py3-pip
@@ -35,7 +49,7 @@ npm install -g typescript
 echo "3. Clone the shadow app from github to $GITHUBDIR"
 git clone --no-hardlinks https://github.com/terchris/shadow-brreg "$GITHUBDIR"
 
-read -p "Press any key..."
+
 
 echo "4. Make cron scripts executable"
 chmod +x "$GITHUBDIR/app/shadow/shadow-cronjob.sh"
@@ -44,14 +58,14 @@ chmod +x "$GITHUBDIR/app/shadow/shadow-cronjob.sh"
 echo "5. Set up and compile the shadow app"
 cd "$GITHUBDIR/app/shadow"
 
-read -p "Press any key..."
+
 
 echo "6. yarn install"
 yarn install
 echo "7. yarn build"
 yarn build
 
-read -p "Press any key..."
+
 
 echo "8. Check if database is initiated "
 if [ ! -f "$INITIATEDDBFILE" ]; then 
@@ -59,18 +73,18 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     echo "8b. create download folder $DOWNLOADDIR"
     mkdir "$DOWNLOADDIR"
 
-    read -p "Press any key..."
+    
 
     echo "8c. download excel file enheter_alle.xlsx from brreg.no to $DOWNLOADDIR/$BRREGENHETERXLSFILE"
     wget --header='Accept: application/vnd.brreg.enhetsregisteret.enhet+vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' -O "$DOWNLOADDIR/$BRREGENHETERXLSFILE" 'https://data.brreg.no/enhetsregisteret/api/enheter/lastned/regneark'
 
-    read -p "Press any key..."
+    
 
-    echo "8d. convert excel file $BRREGENHETERXLSFILE to csv format and name it $BRREGENHETERCSVFILE"
+    echo "8d. TAKES TIME to convert excel file $BRREGENHETERXLSFILE to csv format and name it $BRREGENHETERCSVFILE"
     #soffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76 "$DOWNLOADDIR/$BRREGENHETERXLSFILE" --outdir "$DOWNLOADDIR" 
     xlsx2csv "$DOWNLOADDIR/$BRREGENHETERXLSFILE" "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
 
-    read -p "Press any key..."
+    
 
     echo "8e. wait until the databse in the other container is ready" 
     until pg_isready -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER"
@@ -81,48 +95,48 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     sleep 2
     echo "8f. Database is ready"
 
-    read -p "Press any key..."
+    
 
     echo "8g. create the database: $DATABASE_NAME"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" --user="$DATABASE_USER" -c "CREATE DATABASE $DATABASE_NAME OWNER $DATABASE_USER;"
 
-    read -p "Press any key..."
+    
 
-    echo "8h. Drop the table brreg_enheter_alle if it exists"
-    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" --user="$DATABASE_USER" -c "DROP TABLE brreg_enheter_alle;"
+    #echo "8h. Drop the table brreg_enheter_alle if it exists"
+    #PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" --user="$DATABASE_USER" -c "DROP TABLE brreg_enheter_alle;"
 
-    read -p "Press any key..."
+    
 
     echo "8i. create the table brreg_enheter_alle usinf definition in $BRREGTABLEDEFINITIONFILE"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -f "$GITHUBDIR "/"$BRREGTABLEDEFINITIONFILE"
 
-    read -p "Press any key..."
+    
 
     echo "8j. Import the csv file $BRREGENHETERCSVFILE to the database"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "\copy brreg_enheter_alle FROM '$DOWNLOADDIR/$BRREGENHETERCSVFILE' DELIMITER ',' CSV HEADER;"
     
-    read -p "Press any key..."
+    
 
     echo "8k. Create a file $INITIATEDDBFILE to indicate that the database is initiated"
     date > "$INITIATEDDBFILE"
 
-    read -p "Press any key..."
+    
 
     echo "8l. Delete the downloaded files: $BRREGENHETERXLSFILE and $BRREGENHETERCSVFILE"
     #rm "$DOWNLOADDIR/$BRREGENHETERXLSFILE"
     #rm "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
 
-    read -p "Press any key..."
+    
 
     echo "8m. Add the number of records imported to the $INITIATEDDBFILE file"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT COUNT(*) FROM brreg_enheter_alle;" >> "$INITIATEDDBFILE"
     
-    read -p "Press any key..."
+    
 
     echo "8n. Display the $INITIATEDDBFILE file"
     cat "$INITIATEDDBFILE"
 
-    read -p "Press any key..."
+    
 
     echo "8o. Add and initiate tables used by the node app to keep the database updated"
     node "$GITHUBDIR/app/shadow/dist/initdb.js"
