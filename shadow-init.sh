@@ -19,8 +19,14 @@ CRONJOBSFILE=app/shadow/cronjobs.txt
 echo "shadow-init.sh starting"
 
 echo "1. Install git and cron"
-apk add git apk-cron postgresql-client libreoffice
+apk add git apk-cron postgresql-client py3-pip
 # libreoffice is huge, but needed to convert xlsx to csv
+# apk add py3-pip
+# pip install xlsx2csv
+
+echo "1.a. Install xlsx2csv"
+pip install xlsx2csv
+
 
 echo "2. Install typescript"
 npm install -g typescript
@@ -61,7 +67,8 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     read -p "Press any key..."
 
     echo "8d. convert excel file $BRREGENHETERXLSFILE to csv format and name it $BRREGENHETERCSVFILE"
-    soffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76 "$DOWNLOADDIR/$BRREGENHETERXLSFILE" --outdir "$DOWNLOADDIR" 
+    #soffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76 "$DOWNLOADDIR/$BRREGENHETERXLSFILE" --outdir "$DOWNLOADDIR" 
+    xlsx2csv "$DOWNLOADDIR/$BRREGENHETERXLSFILE" "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
 
     read -p "Press any key..."
 
@@ -102,8 +109,8 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     read -p "Press any key..."
 
     echo "8l. Delete the downloaded files: $BRREGENHETERXLSFILE and $BRREGENHETERCSVFILE"
-    rm "$DOWNLOADDIR/$BRREGENHETERXLSFILE"
-    rm "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
+    #rm "$DOWNLOADDIR/$BRREGENHETERXLSFILE"
+    #rm "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
 
     read -p "Press any key..."
 
