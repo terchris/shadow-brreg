@@ -10,6 +10,19 @@
 
 #docker exec -it shadow-brreg-db-1 wget https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-brreg-setup.sh && chmod +x shadow-brreg-setup.sh && ./shadow-brreg-setup.sh
 
+
+# first we need to wait until postgres is finished installing and is ready 
+until pg_isready
+do
+    echo "."
+    sleep 1
+done
+sleep 2
+echo "database is ready"
+
+
+
+
 INSTALLEDFILE=/usr/src/shared/database_download_finished.txt
 # if /usr/src/shared/database_download_finished.txt exists then the database is already downloaded and you can skip this step
 if [ -f "$INSTALLEDFILE" ]; then 
