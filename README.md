@@ -38,7 +38,7 @@ The database holds more than a million records. And you can use it to play with 
 
 The database is available on port 5433 on the host. This so that the port does not interfere with other postgresql instances you may have.  
 
-pgAdmin is available on port 5050 on the host. To access pgAdmin you need to login with the user `postgres@mamma.no` and the password `postgres`. The URL is `http://localhost:5050`
+pgAdmin is available on port 5051 on the host. To access pgAdmin you need to login with the user `postgres@mamma.no` and the password `postgres`. The URL is `http://localhost:5051`
 
 
 # Just one file to set it up
@@ -132,7 +132,7 @@ port: 5433
 The database (docker volume) takes about 733 MB on disk. The database is updated every minute and we keep track of all changes. So it will grow over time. If you dont need to keep track of changes you can just delete all (images, containers, volumes) and start over again. The database will be downloaded again and you will have a fresh database with all organizations.
 
 ## A note on pdAdmin
-pgAdmin is a tool for managing postgres databases. It is not needed to access the database. But it is nice to have. It is available on port 5050 on the host. http://localhost:5050 if all is running on your local machine.
+pgAdmin is a tool for managing postgres databases. It is not needed to access the database. But it is nice to have. It is available on port 5051 on the host. http://localhost:5051 if all is running on your local machine.
 
 * use ´db´ as the server name to access the database
 
