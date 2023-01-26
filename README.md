@@ -7,7 +7,7 @@ Just copy one file "docker-compose.yml" to your local machine and start it with 
 
 * If you are using a Mac or Windows you need to install docker desktop. https://www.docker.com/products/docker-desktop If you are using Linux you know what to do.
 
-![Tree persons, Me, ChatGPT and Github Copilot sitting in front of my computer writing code. We are dressed in different colours and the background is the andromeda.  The image is digital art.](app/shadow/img/dall-e_chatgpt_copilot_me_writing_code.png)
+![Tree persons, Me, ChatGPT and Github Copilot sitting in front of my computer writing code. We are dressed in different colours and the background is the andromeda.  The image is digital art.](img/dall-e_chatgpt_copilot_me_writing_code.png)
 
 
 # Code written by ChatGPT, Github Copilot and me
@@ -42,6 +42,19 @@ The database is available on port 5433 on the host. This so that the port does n
 pgAdmin is available on port 5051 on the host. To access pgAdmin you need to login with the user `postgres@mamma.no` and the password `postgres`. The URL is `http://localhost:5051`
 
 
+## Getting started
+
+1. Download the only file you need. The docker-compose.yml file
+2. Start the container as described in the section "Just one file to set it up"
+3. Set up pgAdmin so that you can access the database from your browser [read pgAdmin setup](pgadmin-setup.md)
+4. Register and get login to ChatGPT [chat.openai.com](https://chat.openai.com)
+5. Ask ChatGPT to write code for you. [Read how to ask ChatGPT to write code for you](1chatgpt.md)
+6. If you are a developer you can create your own program.
+
+* [Use the code shadow-brreg-node as starting point if you are a node developer](https://github.com/terchris/shadow-brreg-node)
+
+* missing: Use the code shadow-brreg-python if you are a python developer
+
 # Just one file to set it up
 To start he whole thing you need just one file. The docker-compose.yml file. This file will download the latest version of the database and start the automatic updating of the database.
 You can copy & paste the file or download it with wget or curl.
@@ -59,7 +72,6 @@ In the directory where you downloaded the docker-compose.yml file type:
 ```
 docker compose up -d
 ```
-
 
 # Techincal notes
 
@@ -145,13 +157,3 @@ port: 5433
 
 The database (docker volume) takes about 733 MB on disk. The database is updated every minute and we keep track of all changes. So it will grow over time. If you dont need to keep track of changes you can just delete all (images, containers, volumes) and start over again. The database will be downloaded again and you will have a fresh database with all organizations.
 
-## A note on pdAdmin
-pgAdmin is a tool for managing postgres databases. It is not needed to access the database. But it is nice to have. It is available on port 5051 on the host. http://localhost:5051 if all is running on your local machine.
-
-* use ´db´ as the server name to access the database
-
-![use db ad the host name](app/shadow/img/pgadmin-use-db-as-host.png)
-
-* The database tables are:
-You can see them and their definition in pgAdmin.
- ![tables in the database](app/shadow/img/pgadmin-tables.png)
