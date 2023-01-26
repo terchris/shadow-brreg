@@ -64,3 +64,28 @@ Can give me the sql statement that lists the names and number of employees in or
 Just click on the `Copy code` button to copy the code to your clipboard. Then paste it into pgAdmin in your web browser and click on the `Play` button. You should now see the result of the query like this:
 
 ![1chatgpt first data from chatgpt query](img/1chatgpt-1-pgadmin.png)
+
+## But what if you dont know english?
+
+You can even write the question in your native language. This is how I, in Norwegian, asked ChatGPT to list all organizations that have gone bankrupt.
+
+>Lag sql som lister navn og antall ansatte i organisasjoner som ikke har feltet konkurs satt til NEI. Gi meg topp 10 og sorter slik at den med flest ansatte er øverst.
+
+```sql
+SELECT navn, antall_ansatte FROM brreg_enheter_alle WHERE konkurs != 'NEI' ORDER BY antall_ansatte DESC LIMIT 10;
+```
+
+## You can define concepts 
+
+You can define concepts and then use them in your queries. This is how I defined the concept `bankrupt`. I also told ChatGPT that the field stiftelsesdato is a date. It seems that ChatGPT already know the concept of oldest and that is can be applied to dates.  
+
+>When the field konkurs is set to something different than NEI it means that the company is bankrupt. The field stiftelsesdato is the date that the company was created. Write a sql that lists name, stiftelsesdato and antall ansatte of the 10 oldest companies that are bankrupt.
+
+```sql
+SELECT navn, stiftelsesdato, antall_ansatte
+FROM brreg_enheter_alle
+WHERE konkurs != 'NEI'
+ORDER BY stiftelsesdato ASC
+LIMIT 10;
+```
+
