@@ -610,7 +610,7 @@ async function main() {
         console.log("update shadow database with changes");
         await updateBrregShadowDatabaseWithChanges(changesToProcessForEachRead)
 
-        console.log("Done for today");
+        console.log("Done for now");
     } else {
         console.log("Database connection is not ok");
     }

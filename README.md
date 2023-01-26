@@ -27,9 +27,10 @@ So when I had to write the code for the automatic update of the database (in thi
 
 There was one more AI assisting me, Copilot and ChatGPT. I'm dyslectic and I often misspell words. I use a chrome plugin named Grammarly that checks and rates the readability of the questions I ask ChatGPT. ChatGPT gives more better answers when the questions are precise.
 
-You will find the code written by CahtGPT, Github Copilot and me in the repository: https://github.com/terchris/shadow-brreg-node
-The questions and answers are in the file: chatGPT.MD
+When creating shadow-brreg i asked ChatGPT 115 questions.
+[You will find all auestions and answers here](https://github.com/terchris/shadow-brreg-node/blob/main/chatGPT.MD) Note that the first 20 questions are about setting up the development environment. The rest are about the code for the automatic update of the database.
 
+You will find the code written by ChatGPT, Github Copilot and me in the repository: https://github.com/terchris/shadow-brreg-node The code is in the file [index.ts](https://github.com/terchris/shadow-brreg-node/blob/main/src/index.ts)
 
 # Purpose of shadow-brreg is to make it easy to get access to the data from brreg.no
 It will spin up a container that holds a postgres database with all data from brreg.no
@@ -60,9 +61,22 @@ docker compose up -d
 ```
 
 
-
 # Techincal notes
 
+## First time setup
+
+It takes a long time to download and set up the database the first time you start the container. If you want to see what is going on the dirst time you can open a terminal and type:
+```
+docker compose up
+```
+When you omit the -d parameter the container will run in the foreground and you can see what is going on. Pressing control C will stop the container.
+
+The first time you start the container it will download a excel file (enheter_alle.xlsx) from Brønnøysundregistrene (brreg.no). The file is 195 MB in size. The download will take some time depending on your internet connection. brreg.no uses the proprietary Microsoft format xlsx. In order to import the file into the database it must be converted to the open format csv. This also takes some time.
+Why brreg.no has chosen to use the proprietary Microsoft format xlsx is a mystery to me. And why they do not compress the file is also a mystery.
+If brreg.no had used the open format csv and compressed the file it would have been much faster to download and import the file into the database. We would all have saved time, bandwith, disk space and electricity.
+
+
+[This is the log from a initial startup of shadow-brreg system](initial-startup-log.md)
 ## Start the container
 In the directory where you downloaded the docker-compose.yml file type:
 ```
