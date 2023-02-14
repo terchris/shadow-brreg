@@ -1,0 +1,146 @@
+[
+    {
+        "label": "organisasjonsnummer",
+        "value": "organisasjonsnummer"
+    },
+    {
+        "label": "navn",
+        "value": "navn"
+    },
+    {
+        "label": "organisasjonsform_kode",
+        "value": "organisasjonsform.kode"
+    },
+    {
+        "label": "organisasjonsform_beskrivelse",
+        "value": "organisasjonsform.beskrivelse"
+    },
+    {
+        "label": "postadresse_land",
+        "value": "postadresse.land"
+    },
+    {
+        "label": "postadresse_landkode",
+        "value": "postadresse.landkode"
+    },
+    {
+        "label": "postadresse_postnummer",
+        "value": "postadresse.postnummer"
+    },
+    {
+        "label": "postadresse_poststed",
+        "value": "postadresse.poststed"
+    },
+    {
+        "label": "postadresse_adresse",
+        "value": "postadresse.adresse",
+        "default": ""
+    },
+    {
+        "label": "postadresse_kommune",
+        "value": "postadresse.kommune"
+    },
+    {
+        "label": "postadresse_kommunenummer",
+        "value": "postadresse.kommunenummer"
+    },
+    {
+        "label": "registreringsdatoEnhetsregisteret",
+        "value": "registreringsdatoEnhetsregisteret"
+    },
+    {
+        "label": "registrertIMvaregisteret",
+        "value": "registrertIMvaregisteret",
+        "default": false
+    },
+    {
+        "label": "naeringskode1_kode",
+        "value": "naeringskode1.kode"
+    },
+    {
+        "label": "naeringskode1_beskrivelse",
+        "value": "naeringskode1.beskrivelse"
+    },
+    {
+        "label": "antall_ansatte",
+        "value": "antallAnsatte",
+        "default": 0
+    },
+    {
+        "label": "forretningsadresse_land",
+        "value": "forretningsadresse.land"
+    },
+    {
+        "label": "forretningsadresse_landkode",
+        "value": "forretningsadresse.landkode"
+    },
+    {
+        "label": "forretningsadresse_postnummer",
+        "value": "forretningsadresse.postnummer"
+    },
+    {
+        "label": "forretningsadresse_poststed",
+        "value": "forretningsadresse.poststed"
+    },
+    {
+        "label": "forretningsadresse_adresse",
+        "value": "forretningsadresse.adresse",
+        "default": ""
+    },
+    {
+        "label": "forretningsadresse_kommune",
+        "value": "forretningsadresse.kommune"
+    },
+    {
+        "label": "forretningsadresse_kommunenummer",
+        "value": "forretningsadresse.kommunenummer"
+    },
+    {
+        "label": "stiftelsesdato",
+        "value": "stiftelsesdato"
+    },
+    {
+        "label": "institusjonellSektorkode_kode",
+        "value": "institusjonellSektorkode.kode"
+    },
+    {
+        "label": "registrertIForetaksregisteret",
+        "value": "registrertIForetaksregisteret"
+    },
+    {
+        "label": "registrertIStiftelsesregisteret",
+        "value": "registrertIStiftelsesregisteret"
+    },
+    {
+        "label": "registrertIFrivillighetsregisteret",
+        "value": "registrertIFrivillighetsregisteret"
+    },
+    {
+        "label": "sisteInnsendteAarsregnskap",
+        "value": "sisteInnsendteAarsregnskap"
+    },
+    {
+        "label": "registrertIFrivillighetsregisteret",
+        "value": "registrertIFrivillighetsregisteret"
+    },
+    {
+        "label": "konkurs",
+        "value": "konkurs"
+    },
+    {
+        "label": "underAvvikling",
+        "value": "underAvvikling"
+    },
+    {
+        "label": "underTvangsavviklingEllerTvangsopplosning",
+        "value": "underTvangsavviklingEllerTvangsopplosning"
+    },
+    {
+        "label": "registrertIFrivillighetsregisteret",
+        "value": "registrertIFrivillighetsregisteret"
+    },
+    {
+        "label": "maalform",
+        "value": "maalform"
+    }
+]
