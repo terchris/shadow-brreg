@@ -32,7 +32,7 @@ services:
       [
         "sh",
         "-c",
-        "wget -O shadow-init.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-init.sh && chmod +x shadow-init.sh && ./shadow-init.sh"
+        "wget -O shadow-init.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-init_json.sh && chmod +x shadow-init.sh && ./shadow-init.sh"
       ]
   pgadmin:
     image: dpage/pgadmin4

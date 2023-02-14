@@ -1,5 +1,7 @@
 # The shadow database of all companies in Norway
 
+NB !!! Rewriting from downloading excel to downloading json -- so testing now..
+
 shadow-brreg is a system that creates a shadow database copy of all companies in Norway ( 1 million ). Enables you to play with machine learning, data science, data analysis, and data visualization on your local machine with relevant data.
 
 Will run on any machine (Mac, Windows, Linux) in a docker container. Automatic installation of the database and automatic update of the database.  Updated every minute with all changes from Norwegian public company registration, Brønnøysundregistrene (www.brreg.no)
@@ -140,8 +142,7 @@ docker compose up
 When you omit the -d parameter the container will run in the foreground and you can see what is going on. Pressing control C will stop the container.
 
 The first time you start the container it will download an excel file (enheter_alle.xlsx) from Brønnøysundregistrene (brreg.no). The file is 195 MB in size. The download will take some time depending on your internet connection. brreg.no uses the proprietary Microsoft format xlsx. In order to import the file into the database it must be converted to the open format CSV. This also takes some time.
-Why brreg.no has chosen to use the proprietary Microsoft format XLSX is a mystery to me. And why they do not compress the file is also a mystery.
-If brreg.no had used the open format CSV and compressed the file it would have been much faster to download and import the file into the database. We would all have saved time, bandwidth, disk space, and electricity.
+It would have a lot easyer for all of us if brreg.no had used the open format CSV and compressed the file.
 
 1. Containers are started as defined in the docker-compose.yml file
 2. The script [shadow-init.sh](shadow-init.sh) is downloaded and executed inside the containerThe script installs programs, download data, converts to CSV, and imports to the database. [This is the log from the initial startup of shadow-brreg system](initial-startup-log.md)

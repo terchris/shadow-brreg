@@ -51,3 +51,55 @@ export interface IOppdaterteEnheter {
     endringstype: string;
     urb_processed: string;
 };
+
+
+export interface ShadowBrregRecordJson {
+    organisasjonsnummer: string;
+    navn: string;
+    organisasjonsform_kode?: string;
+    organisasjonsform_beskrivelse?: string;
+    naeringskode1_kode?: string;
+    naeringskode1_beskrivelse?: string;
+    naeringskode2_kode?: string;
+    naeringskode2_beskrivelse?: string;
+    naeringskode3_kode?: string;
+    naeringskode3_beskrivelse?: string;
+    hjelpeenhetskode?: string;
+    hjelpeenhetskode_beskrivelse?: string;
+    antall_ansatte?: number;
+    hjemmeside?: string;
+    postadresse_adresse?: string;
+    postadresse_poststed?: string;
+    postadresse_postnummer?: string;
+    postadresse_kommune?: string;
+    postadresse_kommunenummer?: string;
+    postadresse_land?: string;
+    postadresse_landkode?: string;
+    forretningsadresse_adresse?: string;
+    forretningsadresse_poststed?: string;
+    forretningsadresse_postnummer?: string;
+    forretningsadresse_kommune?: string;
+    forretningsadresse_kommunenummer?: string;
+    forretningsadresse_land?: string;
+    forretningsadresse_landkode?: string;
+    institusjonellSektorkode_kode?: string;
+    institusjonellSektorkode_beskrivelse?: string;
+    sisteInnsendteAarsregnskap?: string;
+    registreringsdatoEnhetsregisteret?: string;
+    stiftelsesdato?: string;
+    registrertIForetaksregisteret?: string;
+    registrertIStiftelsesregisteret?: string;
+    registrertIFrivillighetsregisteret?: string;
+    registrertIMvaregisteret?: string;
+    konkurs?: string;
+    underAvvikling?: string;
+    underTvangsavviklingEllerTvangsopplosning?: string;
+    maalform?: string;
+    slettedato?: string;
+    end_date?: string;
+    urb_brreg_oppdateringsid?: number;
+    urb_brreg_update_date?: string;
+    urb_brreg_endringstype?: string;
+    urb_sync_date?: string;
+  }
+  
