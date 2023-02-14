@@ -17,8 +17,9 @@ BRREGENHETERJSONCOMPRESSEDFILE=enheter_alle.json.gz
 BRREGENHETERJSONFILE=enheter_alle.json
 BRREGENHETERCSVFILE=enheter_alle.csv
 BRREGTABLEDEFINITIONFILE=shadowbrreg_json-table_definition.sql
-CRONJOBSFILE=app/shadow/cronjobs.txt
+CRONJOBSFILE=app/shadow/cronjobs-json.txt
 BRREGENHETERTABLENAME=shadowbrreg_json
+INITDBSCRIPT=json-initdb.js
 
 echo "shadow-init.sh starting. This is the variables used:"
 echo "INITIATEDDBFILE=$INITIATEDDBFILE"
@@ -123,8 +124,8 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     
 
     echo "8k. Delete the downloaded files: $BRREGENHETERJSONFILE and $BRREGENHETERCSVFILE"
-    rm "$DOWNLOADDIR/$BRREGENHETERJSONFILE"
-    rm "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
+    # rm "$DOWNLOADDIR/$BRREGENHETERJSONFILE"
+    # rm "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
 
     
 
@@ -139,7 +140,7 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     
 
     echo "8n. Add and initiate tables used by the node app to keep the database updated"
-    node "$GITHUBDIR/app/shadow/dist/initdb.js"
+    node "$GITHUBDIR/app/shadow/dist/$INITDBSCRIPT"
 fi
 
 echo "9. Add the job to cron"

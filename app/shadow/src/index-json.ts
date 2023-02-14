@@ -1,4 +1,4 @@
-/*** json-index.ts
+/*** index-json.ts
  * code for reading changes from brreg and updating the tables
  * Written by ChatGPT and @terchris (Copilot was also part of it)
  * This program will be run as a cronjob 

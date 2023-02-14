@@ -1,4 +1,4 @@
-/** json-initdb.ts
+/** initdb-json.ts
  * for init of the databasewhen importing json files
  */
 
