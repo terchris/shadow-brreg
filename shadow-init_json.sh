@@ -18,6 +18,7 @@ BRREGENHETERJSONFILE=enheter_alle.json
 BRREGENHETERCSVFILE=enheter_alle.csv
 BRREGTABLEDEFINITIONFILE=shadowbrreg_json-table_definition.sql
 CRONJOBSFILE=app/shadow/cronjobs.txt
+BRREGENHETERTABLENAME=shadowbrreg_json
 
 echo "shadow-init.sh starting. This is the variables used:"
 echo "INITIATEDDBFILE=$INITIATEDDBFILE"
@@ -106,13 +107,13 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" --user="$DATABASE_USER" -c "CREATE DATABASE $DATABASE_NAME OWNER $DATABASE_USER;"
     
 
-    echo "8h. create the table shadowbrreg_json using definition in $BRREGTABLEDEFINITIONFILE"
+    echo "8h. create the table $BRREGENHETERTABLENAME using definition in $BRREGTABLEDEFINITIONFILE"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -f "$GITHUBDIR"/"$BRREGTABLEDEFINITIONFILE"
 
     
 
     echo "8i. Import the csv file $BRREGENHETERCSVFILE to the database"
-    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "\copy brreg_enheter_alle FROM '$DOWNLOADDIR/$BRREGENHETERCSVFILE' DELIMITER ',' CSV HEADER;"
+    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "\copy '$BRREGENHETERTABLENAME' FROM '$DOWNLOADDIR/$BRREGENHETERCSVFILE' DELIMITER ',' CSV HEADER;"
     
     
 
@@ -128,7 +129,7 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     
 
     echo "8l. Add the number of records imported to the $INITIATEDDBFILE file"
-    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT COUNT(*) FROM brreg_enheter_alle;" >> "$INITIATEDDBFILE"
+    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT COUNT(*) FROM '$BRREGENHETERTABLENAME';" >> "$INITIATEDDBFILE"
     
     
 
