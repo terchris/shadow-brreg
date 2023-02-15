@@ -1,6 +1,6 @@
 # The shadow database of all companies in Norway
 
-NB !!! Rewriting from downloading excel to downloading json -- so testing now..
+Fix 2023-02-16: Data now imported from json - importing from M$ Excel resulted in incomplete data.
 
 shadow-brreg is a system that creates a shadow database copy of all companies in Norway ( 1 million ). Enables you to play with machine learning, data science, data analysis, and data visualization on your local machine with relevant data.
 
@@ -141,11 +141,14 @@ docker compose up
 
 When you omit the -d parameter the container will run in the foreground and you can see what is going on. Pressing control C will stop the container.
 
-The first time you start the container it will download an excel file (enheter_alle.xlsx) from Brønnøysundregistrene (brreg.no). The file is 195 MB in size. The download will take some time depending on your internet connection. brreg.no uses the proprietary Microsoft format xlsx. In order to import the file into the database it must be converted to the open format CSV. This also takes some time.
-It would have a lot easyer for all of us if brreg.no had used the open format CSV and compressed the file.
+Fix: 2023-02-15 - using json as input to the database
+Using excel as input was not just slow. It also dropped important data [notes-json2csv](app/shadow/src/notes-json2cvs-conversion.md). I have now changed the import to use json as input. This is much faster and no data is lost. Using the node pacage jscon2csv enabled me to get rid of the python script that was used to convert json to csv.
+
+The first time you start the container it will download compressed json file (enheter_alle.json.gz) from Brønnøysundregistrene (brreg.no). The file is 91 MB in size. The download will take some time depending on your internet connection. After deecompresing the file it is 1.1GB in size. So make sure you have diskspace. The json file is then converted to csv and imported to the database. This takes some time.
+The temp files are deleted after the import is done.
 
 1. Containers are started as defined in the docker-compose.yml file
-2. The script [shadow-init.sh](shadow-init.sh) is downloaded and executed inside the containerThe script installs programs, download data, converts to CSV, and imports to the database. [This is the log from the initial startup of shadow-brreg system](initial-startup-log.md)
+2. The script [shadow-init.sh](shadow-init_json.sh) is downloaded and executed inside the container. The script installs programs, download data, converts to CSV, and imports to the database. [This is the log from the initial startup of shadow-brreg system](initial-startup-log.md)
 
 ## Start the container
 

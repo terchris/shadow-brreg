@@ -1,1 +1,0 @@
-*/1 * * * * /usr/src/app/shadow-brreg/app/shadow/shadow-cronjob-json.sh 
