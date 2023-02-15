@@ -20,7 +20,7 @@ BRREGTABLEDEFINITIONFILE=brreg_enheter_alle-table_definition.sql
 CRONJOBSFILE=app/shadow/cronjobs.txt
 BRREGENHETERTABLENAME=brreg_enheter_alle
 INITDBSCRIPT=initdb.js
-JSON2CSVCONFIGFILE=json2csvconfig.json
+JSON2CSVCONFIGFILE=json2csv-config.json
 
 echo "shadow-init.sh starting. This is the variables used:"
 echo "INITIATEDDBFILE=$INITIATEDDBFILE"
