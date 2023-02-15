@@ -16,10 +16,10 @@ DOWNLOADDIR=/usr/src/app/download
 BRREGENHETERJSONCOMPRESSEDFILE=enheter_alle.json.gz
 BRREGENHETERJSONFILE=enheter_alle.json
 BRREGENHETERCSVFILE=enheter_alle.csv
-BRREGTABLEDEFINITIONFILE=shadowbrreg_json-table_definition.sql
-CRONJOBSFILE=app/shadow/cronjobs-json.txt
-BRREGENHETERTABLENAME=shadowbrreg_json
-INITDBSCRIPT=json-initdb.js
+BRREGTABLEDEFINITIONFILE=brreg_enheter_alle-table_definition.sql
+CRONJOBSFILE=app/shadow/cronjobs.txt
+BRREGENHETERTABLENAME=brreg_enheter_alle
+INITDBSCRIPT=initdb.js
 
 echo "shadow-init.sh starting. This is the variables used:"
 echo "INITIATEDDBFILE=$INITIATEDDBFILE"
@@ -134,7 +134,7 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     
     
 
-    echo "8m. Display the $INITIATEDDBFILE file"
+    echo "8m. Display the $INITIATEDDBFILE file (showing number of records imported))"
     cat "$INITIATEDDBFILE"
 
     
