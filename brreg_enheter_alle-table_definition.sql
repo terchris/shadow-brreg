@@ -67,7 +67,9 @@ CREATE TABLE public.brreg_enheter_alle (
     under_avvikling character varying(10),
     under_tvangsavvikling_eller_tvangsopplasning character varying(10),
     overordnet_enhet_i_offentlig_sektor character varying(50),
-    malform character varying(10)
+    malform character varying(10),
+    urb_forretningsadresse_adresse text,
+    urb_postadresse_adresse text
 );
 
 

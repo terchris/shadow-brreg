@@ -1,0 +1,42 @@
+write a json2csv config that when the hjelpeenhetskode is present in the object below.
+It will sets the output csv field hjelpeenhetskode to the value of naeringskode2.kode 
+If the hjelpeenhetskode is not present sets the hjelpeenhetskode to "".
+This is the object in the json file: 
+
+  "naeringskode2" : {
+    "beskrivelse" : "Uoppgitt",
+    "kode" : "00.000",
+    "hjelpeenhetskode" : true
+  },
+
+
+
+The json below contains an object forretningsadresse.
+The adresse field is an array. In some cases the array contains two strings.
+Make a function that creates a cvs field urb_forretningsadresse_adresse that
+If the adresse contains two strings then the urb_forretningsadresse_adresse is set to the second string.
+If the adresse field has just one string then the urb_forretningsadresse_adresse is set to the first string. 
+
+
+    "forretningsadresse" : {
+    "land" : "Norge",
+    "landkode" : "NO",
+    "postnummer" : "0580",
+    "poststed" : "OSLO",
+    "adresse" : [ "c/o Anders Abrahamsen", "Risløkkveien 23E" ],
+    "kommune" : "OSLO",
+    "kommunenummer" : "0301"
+  },
+
+
+Do the same for the adresse field in the object below.
+This time name the field urb_postadresse_adresse
+    "postadresse" : {
+    "land" : "Norge",
+    "landkode" : "NO",
+    "postnummer" : "6280",
+    "poststed" : "SØVIK",
+    "adresse" : [ "c/o Ivar Martin Søviknes", "Solheimsvegen 16" ],
+    "kommune" : "ÅLESUND",
+    "kommunenummer" : "1507"
+  },

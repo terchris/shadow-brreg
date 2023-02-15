@@ -1,146 +1,224 @@
-[
-    {
-        "label": "organisasjonsnummer",
-        "value": "organisasjonsnummer"
-    },
-    {
-        "label": "navn",
-        "value": "navn"
-    },
-    {
-        "label": "organisasjonsform_kode",
-        "value": "organisasjonsform.kode"
-    },
-    {
-        "label": "organisasjonsform_beskrivelse",
-        "value": "organisasjonsform.beskrivelse"
-    },
-    {
-        "label": "postadresse_land",
-        "value": "postadresse.land"
-    },
-    {
-        "label": "postadresse_landkode",
-        "value": "postadresse.landkode"
-    },
-    {
-        "label": "postadresse_postnummer",
-        "value": "postadresse.postnummer"
-    },
-    {
-        "label": "postadresse_poststed",
-        "value": "postadresse.poststed"
-    },
-    {
-        "label": "postadresse_adresse",
-        "value": "postadresse.adresse",
-        "default": ""
-    },
-    {
-        "label": "postadresse_kommune",
-        "value": "postadresse.kommune"
-    },
-    {
-        "label": "postadresse_kommunenummer",
-        "value": "postadresse.kommunenummer"
-    },
-    {
-        "label": "registreringsdatoEnhetsregisteret",
-        "value": "registreringsdatoEnhetsregisteret"
-    },
-    {
-        "label": "registrertIMvaregisteret",
-        "value": "registrertIMvaregisteret",
-        "default": false
-    },
-    {
-        "label": "naeringskode1_kode",
-        "value": "naeringskode1.kode"
-    },
-    {
-        "label": "naeringskode1_beskrivelse",
-        "value": "naeringskode1.beskrivelse"
-    },
-    {
-        "label": "antall_ansatte",
-        "value": "antallAnsatte",
-        "default": 0
-    },
-    {
-        "label": "forretningsadresse_land",
-        "value": "forretningsadresse.land"
-    },
-    {
-        "label": "forretningsadresse_landkode",
-        "value": "forretningsadresse.landkode"
-    },
-    {
-        "label": "forretningsadresse_postnummer",
-        "value": "forretningsadresse.postnummer"
-    },
-    {
-        "label": "forretningsadresse_poststed",
-        "value": "forretningsadresse.poststed"
-    },
-    {
-        "label": "forretningsadresse_adresse",
-        "value": "forretningsadresse.adresse",
-        "default": ""
-    },
-    {
-        "label": "forretningsadresse_kommune",
-        "value": "forretningsadresse.kommune"
-    },
-    {
-        "label": "forretningsadresse_kommunenummer",
-        "value": "forretningsadresse.kommunenummer"
-    },
-    {
-        "label": "stiftelsesdato",
-        "value": "stiftelsesdato"
-    },
-    {
-        "label": "institusjonellSektorkode_kode",
-        "value": "institusjonellSektorkode.kode"
-    },
-    {
-        "label": "registrertIForetaksregisteret",
-        "value": "registrertIForetaksregisteret"
-    },
-    {
-        "label": "registrertIStiftelsesregisteret",
-        "value": "registrertIStiftelsesregisteret"
-    },
-    {
-        "label": "registrertIFrivillighetsregisteret",
-        "value": "registrertIFrivillighetsregisteret"
-    },
-    {
-        "label": "sisteInnsendteAarsregnskap",
-        "value": "sisteInnsendteAarsregnskap"
-    },
-    {
-        "label": "registrertIFrivillighetsregisteret",
-        "value": "registrertIFrivillighetsregisteret"
-    },
-    {
-        "label": "konkurs",
-        "value": "konkurs"
-    },
-    {
-        "label": "underAvvikling",
-        "value": "underAvvikling"
-    },
-    {
-        "label": "underTvangsavviklingEllerTvangsopplosning",
-        "value": "underTvangsavviklingEllerTvangsopplosning"
-    },
-    {
-        "label": "registrertIFrivillighetsregisteret",
-        "value": "registrertIFrivillighetsregisteret"
-    },
-    {
-        "label": "maalform",
-        "value": "maalform"
-    }
-]
+{
+    "fields": [
+        {
+            "label": "organisasjonsnummer",
+            "value": "organisasjonsnummer"
+        },
+        {
+            "label": "navn",
+            "value": "navn"
+        },
+        {
+            "label": "organisasjonsform_kode",
+            "value": "organisasjonsform.kode"
+        },
+        {
+            "label": "organisasjonsform_beskrivelse",
+            "value": "organisasjonsform.beskrivelse"
+        },
+        {
+            "label": "naringskode_1",
+            "value": "naeringskode1.kode"
+        },
+        {
+            "label": "naringskode_1_beskrivelse",
+            "value": "naeringskode1.beskrivelse"
+        },
+        {
+            "label": "naringskode_2",
+            "value": "naeringskode2.kode"
+        },
+        {
+            "label": "naringskode_2_beskrivelse",
+            "value": "naeringskode2.beskrivelse"
+        },
+        {
+            "label": "naringskode_3",
+            "value": "naeringskode3.kode"
+        },
+        {
+            "label": "naringskode_3_beskrivelse",
+            "value": "naeringskode3.beskrivelse"
+        },
+        {
+            "label": "naringskode_3",
+            "value": "naeringskode3.kode"
+        },
+        {
+            "label": "naringskode_3_beskrivelse",
+            "value": "naeringskode3.beskrivelse"
+        },
+        {
+            "label": "hjelpeenhetskode",
+            "value": "naeringskode2.kode"
+        },
+        {
+            "label": "hjelpeenhetskode_beskrivelse",
+            "value": "naeringskode2.beskrivelse"
+        },
+        {
+            "label": "hjelpeenhetskode",
+            "value": "getHjelpeenhetsKode"
+        },
+        {
+            "label": "hjelpeenhetskode_beskrivelse",
+            "value": "getHjelpeenhetsBeskrivelse"
+        },
+        {
+            "label": "antall_ansatte",
+            "value": "antallAnsatte",
+            "default": 0
+        },
+        {
+            "label": "hjemmeside",
+            "value": "hjemmeside",
+            "default": ""
+        },
+        {
+            "label": "postadresse_adresse",
+            "value": "postadresse.adresse",
+            "default": ""
+        },
+        {
+            "label": "postadresse_poststed",
+            "value": "postadresse.poststed"
+        },
+        {
+            "label": "postadresse_postnummer",
+            "value": "postadresse.postnummer"
+        },
+        {
+            "label": "postadresse_kommune",
+            "value": "postadresse.kommune"
+        },
+        {
+            "label": "postadresse_kommunenummer",
+            "value": "postadresse.kommunenummer"
+        },
+        {
+            "label": "postadresse_land",
+            "value": "postadresse.land"
+        },
+        {
+            "label": "postadresse_landkode",
+            "value": "postadresse.landkode"
+        },
+        {
+            "label": "forretningsadresse_adresse",
+            "value": "forretningsadresse.adresse",
+            "default": ""
+        },
+        {
+            "label": "forretningsadresse_poststed",
+            "value": "forretningsadresse.poststed"
+        },
+        {
+            "label": "forretningsadresse_postnummer",
+            "value": "forretningsadresse.postnummer"
+        },
+        {
+            "label": "forretningsadresse_kommune",
+            "value": "forretningsadresse.kommune"
+        },
+        {
+            "label": "forretningsadresse_kommunenummer",
+            "value": "forretningsadresse.kommunenummer"
+        },
+        {
+            "label": "forretningsadresse_land",
+            "value": "forretningsadresse.land"
+        },
+        {
+            "label": "forretningsadresse_landkode",
+            "value": "forretningsadresse.landkode"
+        },
+        {
+            "label": "institusjonell_sektorkode",
+            "value": "institusjonellSektorkode.kode"
+        },
+        {
+            "label": "institusjonell_sektorkode_beskrivelse",
+            "value": "institusjonellSektorkode.beskrivelse"
+        },
+        {
+            "label": "siste_innsendte_arsregnskap",
+            "value": "sisteInnsendteAarsregnskap"
+        },
+        {
+            "label": "registreringsdato_i_enhetsregisteret",
+            "value": "registreringsdatoEnhetsregisteret"
+        },
+        {
+            "label": "stiftelsesdato",
+            "value": "stiftelsesdato"
+        },
+        {
+            "label": "frivilligregistrertimvaregisteret",
+            "value": "registrertIMvaregisteret",
+            "default": false
+        },
+        {
+            "label": "registrert_i_mva_registeret",
+            "value": "registrertIMvaregisteret",
+            "default": false
+        },
+        {
+            "label": "registrert_i_frivillighetsregisteret",
+            "value": "registrertIFrivillighetsregisteret"
+        },
+        {
+            "label": "registrert_i_foretaksregisteret",
+            "value": "registrertIForetaksregisteret"
+        },
+        {
+            "label": "registrert_i_stiftelsesregisteret",
+            "value": "registrertIStiftelsesregisteret"
+        },
+        {
+            "label": "konkurs",
+            "value": "konkurs"
+        },
+        {
+            "label": "under_avvikling",
+            "value": "underAvvikling"
+        },
+        {
+            "label": "under_tvangsavvikling_eller_tvangsopplasning",
+            "value": "underTvangsavviklingEllerTvangsopplosning"
+        },
+        {
+            "label": "overordnet_enhet_i_offentlig_sektor",
+            "value": "overordnetEnhet"
+        },
+        {
+            "label": "malform",
+            "value": "maalform"
+        },
+        {
+            "label": "urb_forretningsadresse_adresse",
+            "value": "getForretningsadresse"
+        },
+        {
+            "label": "urb_postadresse_adresse",
+            "value": "getPostadresseAdresse"
+        }
+    ],
+    "transforms": [
+        {
+            "type": "custom",
+            "function": "function getHjelpeenhetsKode(row) { return (row.naeringskode2 && row.naeringskode2.hjelpeenhetskode) ? row.naeringskode2.kode : ''; }"
+        },
+        {
+            "type": "custom",
+            "function": "function getHjelpeenhetsBeskrivelse(row) { return (row.naeringskode2 && row.naeringskode2.hjelpeenhetskode) ? row.naeringskode2.beskrivelse : ''; }"
+        },
+        {
+            "type": "custom",
+            "function": "function getForretningsadresse(row) { return (Array.isArray(row.forretningsadresse.adresse) && row.forretningsadresse.adresse.length > 1) ? row.forretningsadresse.adresse[1] : row.forretningsadresse.adresse[0]; }"
+        },
+        {
+            "type": "custom",
+            "function": "function getPostadresseAdresse(row) { return row.postadresse.adresse.length > 1 ? row.postadresse.adresse[1] : row.postadresse.adresse[0]; }"
+        }
+    ]
+}
