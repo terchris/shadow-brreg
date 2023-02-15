@@ -20,6 +20,7 @@ BRREGTABLEDEFINITIONFILE=brreg_enheter_alle-table_definition.sql
 CRONJOBSFILE=app/shadow/cronjobs.txt
 BRREGENHETERTABLENAME=brreg_enheter_alle
 INITDBSCRIPT=initdb.js
+JSON2CSVCONFIGFILE=app/shadow/json2csvconfig.json
 
 echo "shadow-init.sh starting. This is the variables used:"
 echo "INITIATEDDBFILE=$INITIATEDDBFILE"
@@ -88,7 +89,7 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
 
     echo "8e. TAKES TIME to convert json file $BRREGENHETERJSONFILE to csv format and name it $BRREGENHETERCSVFILE"
     start=`date +%s`
-    json2csv -i "$DOWNLOADDIR/$BRREGENHETERJSONFILE" -o "$DOWNLOADDIR/$BRREGENHETERCSVFILE" --flatten-objects --flatten-separator "_"
+    json2csv -i "$DOWNLOADDIR/$BRREGENHETERJSONFILE" -o "$DOWNLOADDIR/$BRREGENHETERCSVFILE" -c "$JSON2CSVCONFIGFILE"
     end=`date +%s`
     echo You wasted  `expr $end - $start` seconds of your life converting the file
     
