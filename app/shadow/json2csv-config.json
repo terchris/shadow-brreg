@@ -57,14 +57,6 @@
             "value": "naeringskode2.beskrivelse"
         },
         {
-            "label": "hjelpeenhetskode",
-            "value": "getHjelpeenhetsKode"
-        },
-        {
-            "label": "hjelpeenhetskode_beskrivelse",
-            "value": "getHjelpeenhetsBeskrivelse"
-        },
-        {
             "label": "antall_ansatte",
             "value": "antallAnsatte",
             "default": 0
@@ -193,14 +185,6 @@
         {
             "label": "malform",
             "value": "maalform"
-        },
-        {
-            "label": "urb_forretningsadresse_adresse",
-            "value": "getForretningsadresse"
-        },
-        {
-            "label": "urb_postadresse_adresse",
-            "value": "getPostadresseAdresse"
         }
     ],
     "transforms": [
