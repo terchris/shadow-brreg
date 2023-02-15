@@ -39,7 +39,7 @@ echo "DATABASE_NAME=$DATABASE_NAME"
 
 
 echo "1. Install git and cron"
-apk add git apk-cron postgresql-client pv
+apk add git apk-cron postgresql-client 
 
 echo "1.a. Install json2csv client"
 npm install -g @json2csv/cli
@@ -84,8 +84,8 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
     wget -O "$DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE" 'https://data.brreg.no/enhetsregisteret/api/enheter/lastned'
 
     echo "8d. uncompress the file $DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE to $DOWNLOADDIR/$BRREGENHETERJSONFILE"
-    #gunzip "$DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE"
-    pv -p -e "$DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE" | gunzip > "$DOWNLOADDIR/$BRREGENHETERJSONFILE"
+    gunzip "$DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE"
+    #pv -p -e "$DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE" | gunzip > "$DOWNLOADDIR/$BRREGENHETERJSONFILE"
 
     echo "8e. TAKES TIME to convert json file $BRREGENHETERJSONFILE to csv format and name it $BRREGENHETERCSVFILE"
     start=`date +%s`
