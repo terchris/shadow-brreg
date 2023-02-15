@@ -41,14 +41,6 @@
             "value": "naeringskode3.beskrivelse"
         },
         {
-            "label": "naringskode_3",
-            "value": "naeringskode3.kode"
-        },
-        {
-            "label": "naringskode_3_beskrivelse",
-            "value": "naeringskode3.beskrivelse"
-        },
-        {
             "label": "hjelpeenhetskode",
             "value": "naeringskode2.kode"
         },
