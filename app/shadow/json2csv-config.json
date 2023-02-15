@@ -18,35 +18,43 @@
         },
         {
             "label": "naringskode_1",
-            "value": "naeringskode1.kode"
+            "value": "naeringskode1.kode",
+            "default": ""
         },
         {
             "label": "naringskode_1_beskrivelse",
-            "value": "naeringskode1.beskrivelse"
+            "value": "naeringskode1.beskrivelse",
+            "default": ""
         },
         {
             "label": "naringskode_2",
-            "value": "naeringskode2.kode"
+            "value": "naeringskode2.kode",
+            "default": ""
         },
         {
             "label": "naringskode_2_beskrivelse",
-            "value": "naeringskode2.beskrivelse"
+            "value": "naeringskode2.beskrivelse",
+            "default": ""
         },
         {
             "label": "naringskode_3",
-            "value": "naeringskode3.kode"
+            "value": "naeringskode3.kode",
+            "default": ""
         },
         {
             "label": "naringskode_3_beskrivelse",
-            "value": "naeringskode3.beskrivelse"
+            "value": "naeringskode3.beskrivelse",
+            "default": ""
         },
         {
             "label": "hjelpeenhetskode",
-            "value": "naeringskode2.kode"
+            "value": "naeringskode2.kode",
+            "default": ""
         },
         {
             "label": "hjelpeenhetskode_beskrivelse",
-            "value": "naeringskode2.beskrivelse"
+            "value": "naeringskode2.beskrivelse",
+            "default": ""
         },
         {
             "label": "antall_ansatte",
