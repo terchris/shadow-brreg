@@ -15,6 +15,7 @@ GITHUBDIR=/usr/src/app/shadow-brreg
 DOWNLOADDIR=/usr/src/app/download
 BRREGENHETERJSONCOMPRESSEDFILE=enheter_alle.json.gz
 BRREGENHETERJSONFILE=enheter_alle.json
+BRREGENHETERJSONNOPIPEFILE=enheter_alle_nopipe.json
 BRREGENHETERCSVFILE=enheter_alle.csv
 BRREGTABLEDEFINITIONFILE=brreg_enheter_alle-table_definition.sql
 CRONJOBSFILE=app/shadow/cronjobs.txt
@@ -22,19 +23,27 @@ BRREGENHETERTABLENAME=brreg_enheter_alle
 INITDBSCRIPT=initdb.js
 JSON2CSVCONFIGFILE=json2csv-config.json
 
+
 echo "shadow-init.sh starting. This is the variables used:"
 echo "INITIATEDDBFILE=$INITIATEDDBFILE"
 echo "GITHUBDIR=$GITHUBDIR"
 echo "DOWNLOADDIR=$DOWNLOADDIR"
 echo "BRREGENHETERJSONCOMPRESSEDFILE=$BRREGENHETERJSONCOMPRESSEDFILE"
+echo "BRREGENHETERJSONFILE=$BRREGENHETERJSONFILE"
+echo "BRREGENHETERJSONNOPIPEFILE=$BRREGENHETERJSONNOPIPEFILE"
 echo "BRREGENHETERCSVFILE=$BRREGENHETERCSVFILE"
 echo "BRREGTABLEDEFINITIONFILE=$BRREGTABLEDEFINITIONFILE"
 echo "CRONJOBSFILE=$CRONJOBSFILE"
+echo "BRREGENHETERTABLENAME=$BRREGENHETERTABLENAME"
+echo "INITDBSCRIPT=$INITDBSCRIPT"
+echo "JSON2CSVCONFIGFILE=$JSON2CSVCONFIGFILE"
+
 echo "DATABASE_HOST=$DATABASE_HOST"
 echo "DATABASE_PORT=$DATABASE_PORT"
 echo "DATABASE_USER=$DATABASE_USER"
 echo "DATABASE_PASSWORD=$DATABASE_PASSWORD"
 echo "DATABASE_NAME=$DATABASE_NAME"
+
 
 
 
@@ -64,7 +73,6 @@ echo "5. Set up and compile the shadow app"
 cd "$GITHUBDIR/app/shadow"
 
 
-
 echo "6. yarn install"
 yarn install
 echo "7. yarn build"
@@ -85,63 +93,66 @@ if [ ! -f "$INITIATEDDBFILE" ]; then
 
     echo "8d. uncompress the file $DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE to $DOWNLOADDIR/$BRREGENHETERJSONFILE"
     gunzip "$DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE"
-    #pv -p -e "$DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE" | gunzip > "$DOWNLOADDIR/$BRREGENHETERJSONFILE"
 
-    echo "8e. TAKES TIME to convert json file $BRREGENHETERJSONFILE to csv format and name it $BRREGENHETERCSVFILE"
+    echo "8e. remove the pipe character from the file $DOWNLOADDIR/$BRREGENHETERJSONFILE and save it as $DOWNLOADDIR/$BRREGENHETERJSONNOPIPEFILE"
+    awk '{gsub(/\|/,"")}1' "$DOWNLOADDIR/$BRREGENHETERJSONFILE" > "$DOWNLOADDIR/$BRREGENHETERJSONNOPIPEFILE"
+
+
+    echo "8f. TAKES TIME to convert json file $BRREGENHETERJSONNOPIPEFILE to csv format and name it $BRREGENHETERCSVFILE"
     start=`date +%s`
-    json2csv -i "$DOWNLOADDIR/$BRREGENHETERJSONFILE" -o "$DOWNLOADDIR/$BRREGENHETERCSVFILE" -c "$JSON2CSVCONFIGFILE"
+    json2csv -i "$DOWNLOADDIR/$BRREGENHETERJSONNOPIPEFILE" -o "$DOWNLOADDIR/$BRREGENHETERCSVFILE" -d "|" -c "$JSON2CSVCONFIGFILE"
     end=`date +%s`
     echo You wasted  `expr $end - $start` seconds of your life converting the file
     
 
-    echo "8e. wait until the databse in the other container is ready" 
+    echo "8g. wait until the databse in the other container is ready" 
     until pg_isready -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER"
     do
         echo "... waiting for database to be ready ..."
         sleep 1
     done
     sleep 2
-    echo "8f. Database is ready"
+    echo "8h. Database is ready"
 
     
 
-    echo "8g. create the database: $DATABASE_NAME"
+    echo "8i. create the database: $DATABASE_NAME"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" --user="$DATABASE_USER" -c "CREATE DATABASE $DATABASE_NAME OWNER $DATABASE_USER;"
     
 
-    echo "8h. create the table $BRREGENHETERTABLENAME using definition in $BRREGTABLEDEFINITIONFILE"
+    echo "8j. create the table $BRREGENHETERTABLENAME using definition in $BRREGTABLEDEFINITIONFILE"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -f "$GITHUBDIR"/"$BRREGTABLEDEFINITIONFILE"
 
     
 
-    echo "8i. Import the csv file $BRREGENHETERCSVFILE to the database"
-    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "\copy $BRREGENHETERTABLENAME FROM '$DOWNLOADDIR/$BRREGENHETERCSVFILE' DELIMITER ',' CSV HEADER;"
+    echo "8k. Import the csv file $BRREGENHETERCSVFILE to the database"
+    PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "\COPY $BRREGENHETERTABLENAME FROM '$DOWNLOADDIR/$BRREGENHETERCSVFILE' WITH DELIMITER '|' CSV HEADER;"
     
     
 
-    echo "8j. Create a file $INITIATEDDBFILE to indicate that the database is initiated"
+    echo "8l. Create a file $INITIATEDDBFILE to indicate that the database is initiated"
     date > "$INITIATEDDBFILE"
 
     
 
-    echo "8k. Delete the downloaded files: $BRREGENHETERJSONFILE and $BRREGENHETERCSVFILE"
+    echo "8m. Delete the downloaded files: $BRREGENHETERJSONFILE and $BRREGENHETERCSVFILE"
     rm "$DOWNLOADDIR/$BRREGENHETERJSONFILE"
     rm "$DOWNLOADDIR/$BRREGENHETERCSVFILE"
-    # rm "$DOWNLOADDIR/$BRREGENHETERJSONCOMPRESSEDFILE"
+    rm "$DOWNLOADDIR/$BRREGENHETERJSONNOPIPEFILE"
 
     
 
-    echo "8l. Add the number of records imported to the $INITIATEDDBFILE file"
+    echo "8n. Add the number of records imported to the $INITIATEDDBFILE file"
     PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT COUNT(*) FROM $BRREGENHETERTABLENAME;" >> "$INITIATEDDBFILE"
     
     
 
-    echo "8m. Display the $INITIATEDDBFILE file (showing number of records imported))"
+    echo "8o. Display the $INITIATEDDBFILE file (showing number of records imported))"
     cat "$INITIATEDDBFILE"
 
     
 
-    echo "8n. Add and initiate tables used by the node app to keep the database updated"
+    echo "8p. Add and initiate tables used by the node app to keep the database updated"
     node "$GITHUBDIR/app/shadow/dist/$INITDBSCRIPT"
 fi
 
