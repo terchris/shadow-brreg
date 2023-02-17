@@ -14,6 +14,8 @@ import pool from './config.js';
 import pgFormat from "pg-format";
 import axios from 'axios';
 import * as dotenv from 'dotenv';
+import _ from 'lodash';
+
 import { IBrregEnheterAlle, IOppdaterteEnheter } from './typedefinitions';
 
 const BrregAPIPageSize = "100";
@@ -182,6 +184,39 @@ async function getOneBrregEnhetFromBrregAPI(organisasjonsnummer: string): Promis
 }
 
 
+/*** parseJsonAddressField2db
+ * takes an array of strings and parses it to a string that can be stored in the database
+ * Example input array:
+ * ["c/o Malling & Co Forvaltning AS", "Postboks 1883 Vika"]
+ * Returns the string that can be stored in the database:
+ * "[\"c/o Malling & Co Forvaltning AS\",\"Postboks 1883 Vika\"]",
+ * If the input is invalid a empty string is returned
+ * @param jsonAddress
+ * @returns string
+ */
+
+function parseJsonAddressField2db(jsonAddress: string[]): string {
+    if (!Array.isArray(jsonAddress) || !jsonAddress.every(str => typeof str === "string")) {
+        //console.error("Invalid input: expected an array of strings");
+        return "";
+    }
+    const joinedString = jsonAddress.join('","');
+    return `["${joinedString}"]`;
+}
+
+
+/*
+function parseJsonAddressField2db(jsonAddress: string[]): string {
+    if (!Array.isArray(jsonAddress) || !jsonAddress.every(str => typeof str === "string")) {
+        //console.error("Invalid input: expected an array of strings");
+        return "";
+    }
+    const jsonString = JSON.stringify(jsonAddress.map(str => str.replace(/"/g, '\\"')));
+    return jsonString;
+}
+*/
+
+
 function mapJsonEnhet2db(jsonEnhet: any): any {
     let dbEnhet: any = {};
 
@@ -199,14 +234,21 @@ function mapJsonEnhet2db(jsonEnhet: any): any {
     //dbEnhet.hjelpeenhetskode_beskrivelse: jsonEnhet.hjelpeenhetskode_beskrivelse,
     dbEnhet.antall_ansatte = jsonEnhet?.antallAnsatte ?? null;
     dbEnhet.hjemmeside = jsonEnhet?.hjemmeside ?? null;
-    dbEnhet.postadresse_adresse = jsonEnhet?.postadresse?.adresse[0] ?? null;
+
+    let dbPostAdresse = parseJsonAddressField2db(jsonEnhet?.postadresse?.adresse);
+    dbEnhet.postadresse_adresse = dbPostAdresse ?? null;
+
     dbEnhet.postadresse_poststed = jsonEnhet?.postadresse?.poststed ?? null;
     dbEnhet.postadresse_postnummer = jsonEnhet?.postadresse?.postnummer ?? null;
     dbEnhet.postadresse_kommune = jsonEnhet?.postadresse?.kommune ?? null;
     dbEnhet.postadresse_kommunenummer = jsonEnhet?.postadresse?.kommunenummer ?? null;
     dbEnhet.postadresse_land = jsonEnhet?.postadresse?.land ?? null;
     dbEnhet.postadresse_landkode = jsonEnhet?.postadresse?.landkode ?? null;
-    dbEnhet.forretningsadresse_adresse = jsonEnhet?.forretningsadresse?.adresse[0] ?? null;
+
+    let dbForretningsAdresse = parseJsonAddressField2db(jsonEnhet?.forretningsadresse?.adresse);
+    dbEnhet.forretningsadresse_adresse = dbForretningsAdresse ?? null;
+
+
     dbEnhet.forretningsadresse_poststed = jsonEnhet?.forretningsadresse?.poststed ?? null;
     dbEnhet.forretningsadresse_postnummer = jsonEnhet?.forretningsadresse?.postnummer ?? null;
     dbEnhet.forretningsadresse_kommune = jsonEnhet?.forretningsadresse?.kommune ?? null;
@@ -232,7 +274,11 @@ function mapJsonEnhet2db(jsonEnhet: any): any {
     return dbEnhet;
 }
 
-
+function compareJsonFields(json1: Record<string, unknown>, json2: Record<string, unknown>): string[] {
+    const fields1 = Object.keys(json1).sort();
+    const fields2 = Object.keys(json2).sort();
+    return _.differenceWith(fields1, fields2, _.isEqual);
+  }
 
 
 async function createOneEnhetInBrregShadowDatabase(jsonEnhet: any, jsonUpdate: any): Promise<any> {
@@ -616,4 +662,29 @@ async function main() {
     }
 }
 
+async function testOneUpdate(organisasjonsnummer : string) {
+    let jsonEnhetResponse = await getOneBrregEnhetFromBrregAPI(organisasjonsnummer);
+    let jsonUpdate = {
+        oppdateringsid: 1,
+        dato: "2021-01-01",
+        organisasjonsnummer: organisasjonsnummer,
+    }
+    
+    let jsonEnhet = jsonEnhetResponse.enhet;
+
+
+    let updateOppdatertEnhetResponse = await updateOneBrregShadowRecord(jsonEnhet, jsonUpdate);
+}
+
+
+
 main();
+
+
+// for testing that we update correctly 
+/*
+testOneUpdate("925221333").then(() => {
+    console.log("Done");
+    process.exit();
+});
+*/

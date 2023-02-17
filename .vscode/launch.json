@@ -4,11 +4,19 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "json-initdb",
-            "program": "${workspaceFolder}/app/shadow/dist/json-initdb.js",
+            "name": "initdb",
+            "program": "${workspaceFolder}/app/shadow/dist/initdb.js",
             "envFile": "${workspaceFolder}/app/shadow/.env",
             "sourceMaps": true
-        }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "index",
+            "program": "${workspaceFolder}/app/shadow/dist/index.js",
+            "envFile": "${workspaceFolder}/app/shadow/.env",
+            "sourceMaps": true
+        }        
      
     ]
 }

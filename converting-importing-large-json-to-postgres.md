@@ -1,7 +1,7 @@
 # Converting and importing a 1 GB JSON file into a Postgres database
 
 In this article, I'll show you how to convert a large JSON file to a CSV file, then import the CSV file into a PostgreSQL database table.
-![An oil painting by Matisse of a humanoid robot putting a large file into a database](../../img/dall-e_robot_file_into_db.png)
+![An oil painting by Matisse of a humanoid robot putting a large file into a database](img/dall-e_robot_file_into_db.png)
 
 ## Why is it necessary to convert the JSON to a CSV file before importing it into Postgres?
 
