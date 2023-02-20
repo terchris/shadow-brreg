@@ -1,6 +1,6 @@
 {
   "name": "shadow-brreg-node",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "repository": "git+https://github.com/terchris/shadow-brreg.git",
   "author": "Terje Christensen <terchris@users.noreply.github.com>",

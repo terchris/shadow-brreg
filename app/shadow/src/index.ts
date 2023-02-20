@@ -228,10 +228,13 @@ function mapJsonEnhet2db(jsonEnhet: any): any {
     dbEnhet.naringskode_1_beskrivelse = jsonEnhet?.naeringskode1?.beskrivelse ?? null;
     dbEnhet.naringskode_2 = jsonEnhet?.naeringskode2?.kode ?? null;
     dbEnhet.naringskode_2_beskrivelse = jsonEnhet?.naeringskode2?.beskrivelse ?? null;
+    dbEnhet.naringskode_2_hjelpeenhetskode = jsonEnhet?.naeringskode2?.hjelpeenhetskode ?? false; //wtf is this?
     dbEnhet.naringskode_3 = jsonEnhet?.naeringskode3?.kode ?? null;
     dbEnhet.naringskode_3_beskrivelse = jsonEnhet?.naeringskode3?.beskrivelse ?? null;
-    //dbEnhet.hjelpeenhetskode: jsonEnhet.hjelpeenhets.kode,
-    //dbEnhet.hjelpeenhetskode_beskrivelse: jsonEnhet.hjelpeenhetskode_beskrivelse,
+
+    dbEnhet.hjelpeenhetskode = jsonEnhet.hjelpeenhets.kode ?? null; 
+    dbEnhet.hjelpeenhetskode_beskrivelse = jsonEnhet.hjelpeenhetskode_beskrivelse ?? null;
+
     dbEnhet.antall_ansatte = jsonEnhet?.antallAnsatte ?? null;
     dbEnhet.hjemmeside = jsonEnhet?.hjemmeside ?? null;
 

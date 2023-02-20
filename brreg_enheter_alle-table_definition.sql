@@ -33,6 +33,7 @@ CREATE TABLE public.brreg_enheter_alle (
     naringskode_1_beskrivelse character varying(255),
     naringskode_2 character varying(10),
     naringskode_2_beskrivelse character varying(255),
+    naringskode_2_hjelpeenhetskode boolean,
     naringskode_3 character varying(10),
     naringskode_3_beskrivelse character varying(255),
     hjelpeenhetskode character varying(10),

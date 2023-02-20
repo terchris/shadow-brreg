@@ -37,6 +37,11 @@
             "default": ""
         },
         {
+            "label": "naringskode_2_hjelpeenhetskode",
+            "value": "naeringskode2.hjelpeenhetskode",
+            "default": false
+        },        
+        {
             "label": "naringskode_3",
             "value": "naeringskode3.kode",
             "default": ""
