@@ -232,8 +232,8 @@ function mapJsonEnhet2db(jsonEnhet: any): any {
     dbEnhet.naringskode_3 = jsonEnhet?.naeringskode3?.kode ?? null;
     dbEnhet.naringskode_3_beskrivelse = jsonEnhet?.naeringskode3?.beskrivelse ?? null;
 
-    dbEnhet.hjelpeenhetskode = jsonEnhet.hjelpeenhets.kode ?? null; 
-    dbEnhet.hjelpeenhetskode_beskrivelse = jsonEnhet.hjelpeenhetskode_beskrivelse ?? null;
+    dbEnhet.hjelpeenhetskode = jsonEnhet?.hjelpeenhet?.kode ?? null; //these are not in the API response - but they are in the big json file that is imported
+    dbEnhet.hjelpeenhetskode_beskrivelse = jsonEnhet?.hjelpeenhet?.beskrivelse ?? null; // seems to me that the hjelpeenhet is the same as the naeringskode2 - but I dont know for sure
 
     dbEnhet.antall_ansatte = jsonEnhet?.antallAnsatte ?? null;
     dbEnhet.hjemmeside = jsonEnhet?.hjemmeside ?? null;
