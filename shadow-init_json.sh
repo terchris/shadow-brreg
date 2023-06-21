@@ -59,6 +59,8 @@ npm install -g @json2csv/transforms
 echo "2. Install typescript"
 npm install -g typescript
 
+echo "2.5. delete the shadow app if it exists"
+rm -rf "$GITHUBDIR"
 
 echo "3. Clone the shadow app from github to $GITHUBDIR"
 git clone --no-hardlinks https://github.com/terchris/shadow-brreg "$GITHUBDIR"
