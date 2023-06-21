@@ -129,6 +129,7 @@ async function addOppdaterteEnheterToDatabase(inputJson: any): Promise<boolean> 
                 const endringstype = enhet.endringstype;
                 await pool.query("INSERT INTO oppdaterteEnheter (oppdateringsid, dato, organisasjonsnummer, endringstype) VALUES ($1, $2, $3, $4)", [oppdateringsid, dato, organisasjonsnummer, endringstype]);
                 oppdaterteEnheterCount++;
+                console.log("Is changed must be updated (" + oppdaterteEnheterCount + ") [" + organisasjonsnummer + "]  Dato:"+ dato + " Endringstype:" + endringstype);
             }
         }
 
