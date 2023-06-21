@@ -30,7 +30,7 @@ async function getOrganizations(query: string, limit: number): Promise<any[]> {
         const res = await pool.query(`${query} LIMIT $1`, [limit]);
         rows = res.rows;
     } catch (err) {
-        console.error("Function: getOrganizations");
+        console.error("ERR in Function: getOrganizations");
         console.error(err);
     }
     return rows;
@@ -86,7 +86,7 @@ async function updateLastDateWeStoredOpdatesFromBrregAPI(lastUpdate: { oppdateri
             [lastUpdate.dato, lastUpdate.oppdateringsid]
         );
     } catch (err) {
-        console.error("Function: updateLastDateWeStoredOpdatesFromBrregAPI");
+        console.error("ERR in Function: updateLastDateWeStoredOpdatesFromBrregAPI");
         console.error(err);
         throw err;
     }
@@ -99,7 +99,7 @@ async function getPageOfOppdaterteEnheterFromBrregAPI(dato: string, page: string
         const response = await axios.get(`https://data.brreg.no/enhetsregisteret/api/oppdateringer/enheter?dato=${dato}&page=${page}&size=${size}`);
         return response.data;
     } catch (error) {
-        console.error("Function: getPageOfOppdaterteEnheterFromBrregAPI");
+        console.error("ERR in Function: getPageOfOppdaterteEnheterFromBrregAPI");
         console.error(error);
         throw error;
     }
@@ -140,7 +140,7 @@ async function addOppdaterteEnheterToDatabase(inputJson: any): Promise<boolean> 
         console.log("--Added " + oppdaterteEnheterCount + " changes to oppdaterteEnheter table");
         return true;
     } catch (err) {
-        console.error("Function: addOppdaterteEnheterToDatabase");
+        console.error("ERR in Function: addOppdaterteEnheterToDatabase");
         console.error(err);
         return false;
     }
@@ -158,7 +158,7 @@ async function getLastDateWeStoredOpdatesFromBrregAPI(): Promise<string> {
         const date = res.rows[0].last_brreg_update_date || res.rows[0].database_download_date;
         return date.toISOString();
     } catch (err) {
-        console.error("Function: getLastDateWeStoredOpdatesFromBrregAPI");
+        console.error("ERR in Function: getLastDateWeStoredOpdatesFromBrregAPI");
         console.error(err);
         throw err;
     }
