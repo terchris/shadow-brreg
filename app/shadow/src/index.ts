@@ -650,6 +650,7 @@ async function updateBrregShadowDatabaseWithChanges(recordsToProcess: number) {
 
 
 async function main() {
+    console.error("last change 21jun23: added error for debugging");
 
     let isOK = await testDatabaseConnection();
     if (isOK) {
