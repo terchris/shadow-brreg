@@ -8,8 +8,10 @@ GITHUBDIR=/usr/src/app/shadow-brreg
 
 echo "shadow-cron.sh started"
 
-# Attempt to create lockfile
-if lockfile -r 0 "$LOCKFILE"; then
+(
+    # Wait for lock on $LOCKFILE (fd 200) for 10 seconds
+    flock -x -w 10 200 || exit 1
+
     if [ ! -f "$INITIATEDDBFILE" ]; then
         echo "Database not initiated ... we must wait"
     else
@@ -17,11 +19,6 @@ if lockfile -r 0 "$LOCKFILE"; then
         node "$GITHUBDIR/app/shadow/dist/index.js"
     fi
 
-    # Remove lockfile
-    rm -f "$LOCKFILE"
-else
-    echo "Another instance is running"
-    exit 1
-fi
+) 200>"$LOCKFILE"
 
 echo "shadow-cron.sh finished"
