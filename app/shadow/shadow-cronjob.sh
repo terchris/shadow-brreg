@@ -9,8 +9,8 @@ GITHUBDIR=/usr/src/app/shadow-brreg
 echo "shadow-cron.sh started"
 
 (
-    # Wait for lock on $LOCKFILE (fd 200) for 10 seconds
-    flock -x -w 10 200 || exit 1
+    # Attempt to acquire an exclusive lock, fail immediately if it cannot be acquired
+    flock -x -n 200 || { echo "Another instance is running"; exit 1; }
 
     if [ ! -f "$INITIATEDDBFILE" ]; then
         echo "Database not initiated ... we must wait"
