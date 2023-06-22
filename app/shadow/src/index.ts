@@ -21,7 +21,7 @@ import { IBrregEnheterAlle, IOppdaterteEnheter } from './typedefinitions';
 const BrregAPIPageSize = "100";
 const changesToProcessForEachRead = 100;
 let globalUpdateCounter = 0;
-
+let globalToUpdateCounter = 0;
 
 async function getOrganizations(query: string, limit: number): Promise<any[]> {
 
@@ -433,58 +433,58 @@ async function updateOneBrregShadowDatabaseRecord(jsonUpdate: IOppdaterteEnheter
 
 
         
-        case "Ukjent":
-            console.log(globalUpdateCounter + " Ukjent endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
+        case "Ukjent":            
+            console.log(globalUpdateCounter + " Remaining:"+ globalToUpdateCounter  +  " Ukjent endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
             markOneBrregShadowRecordResponse = await markOneBrregShadowRecord(jsonUpdate.oppdateringsid, jsonUpdate.dato, jsonUpdate.organisasjonsnummer, jsonUpdate.endringstype);
 
             switch (markOneBrregShadowRecordResponse.status) {
                 case "success":
-                    console.log(globalUpdateCounter + "    Marked the organization Ukjent in the [brreg_enheter_alle] table");
+                    console.log("    Marked the organization Ukjent in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "notfound":
-                    console.log(globalUpdateCounter + "    Organization not found in the [brreg_enheter_alle] table");
+                    console.log("    Organization not found in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "Fjernet":
-                    console.log(globalUpdateCounter + "    Fjernet endringstype");
+                    console.log("    Fjernet endringstype");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 default:
-                    console.log(globalUpdateCounter + "    Unknown status");
+                    console.log("    Unknown status");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, "Unknown status");
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
             }
             break;
         case "Ny":
-            console.log(globalUpdateCounter + " Ny endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
+            console.log(globalUpdateCounter + " Remaining:"+ globalToUpdateCounter  + " Ny endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
             jsonEnhetResponse = await getOneBrregEnhetFromBrregAPI(jsonUpdate.organisasjonsnummer);
             jsonEnhet = jsonEnhetResponse.enhet;
             let createBrregEnhetResponse = await createOneEnhetInBrregShadowDatabase(jsonEnhet, jsonUpdate);
 
             switch (createBrregEnhetResponse.status) {
                 case "success":
-                    console.log(globalUpdateCounter + "    Created the organization in the [brreg_enheter_alle] table");
+                    console.log("    Created the organization in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, createBrregEnhetResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
 
                 case "error":
-                    console.log(globalUpdateCounter + "    Error creating the organization in the [brreg_enheter_alle] table");
+                    console.log("    Error creating the organization in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, createBrregEnhetResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "exists":
-                    console.log(globalUpdateCounter + "    the organization already exists in the [brreg_enheter_alle] table");
+                    console.log("    the organization already exists in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, createBrregEnhetResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 default:
-                    console.log(globalUpdateCounter + "    Unknown status");
+                    console.log("    Unknown status");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, "Unknown status");
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
@@ -492,7 +492,7 @@ async function updateOneBrregShadowDatabaseRecord(jsonUpdate: IOppdaterteEnheter
 
             break;
         case "Endring":
-            console.log(globalUpdateCounter + " Endring endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
+            console.log(globalUpdateCounter + " Remaining:"+ globalToUpdateCounter  + " Endring endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
             jsonEnhetResponse = await getOneBrregEnhetFromBrregAPI(jsonUpdate.organisasjonsnummer);
             switch (jsonEnhetResponse.status) {
                 case "success":
@@ -501,23 +501,23 @@ async function updateOneBrregShadowDatabaseRecord(jsonUpdate: IOppdaterteEnheter
                     updateOppdatertEnhetResponse = await updateOneBrregShadowRecord(jsonEnhet, jsonUpdate);
                     switch (updateOppdatertEnhetResponse.status) {
                         case "success":
-                            console.log(globalUpdateCounter + "    Updated the [brreg_enheter_alle] table");
+                            console.log("    Updated the [brreg_enheter_alle] table");
                             updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, updateOppdatertEnhetResponse.status);
                             logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                             break;
 
                         case "error":
-                            console.log(globalUpdateCounter + "    Error updating the [brreg_enheter_alle] table");
+                            console.log("    Error updating the [brreg_enheter_alle] table");
                             updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, updateOppdatertEnhetResponse.status);
                             logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                             break;
                         case "notfound":
-                            console.log(globalUpdateCounter + "    Not found in the [brreg_enheter_alle] table");
+                            console.log("    Not found in the [brreg_enheter_alle] table");
                             updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, updateOppdatertEnhetResponse.status);
                             logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                             break;
                         default:
-                            console.log(globalUpdateCounter + "    Unknown status");
+                            console.log("    Unknown status");
                             updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, "Unknown status");
                             logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                             break;
@@ -526,7 +526,7 @@ async function updateOneBrregShadowDatabaseRecord(jsonUpdate: IOppdaterteEnheter
 
                     break;
                 case "not found":
-                    console.log(globalUpdateCounter + " jsonEnhet not found organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
+                    console.log(globalUpdateCounter + " Remaining:"+ globalToUpdateCounter  + " jsonEnhet not found organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
                     break;
                 default:
                     break;
@@ -534,81 +534,81 @@ async function updateOneBrregShadowDatabaseRecord(jsonUpdate: IOppdaterteEnheter
 
             break;
         case "Sletting":
-            console.log(globalUpdateCounter + " Sletting endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
+            console.log(globalUpdateCounter + " Remaining:"+ globalToUpdateCounter  + " Sletting endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
             markOneBrregShadowRecordResponse = await markOneBrregShadowRecord(jsonUpdate.oppdateringsid, jsonUpdate.dato, jsonUpdate.organisasjonsnummer, jsonUpdate.endringstype);
 
             switch (markOneBrregShadowRecordResponse.status) {
                 case "success":
-                    console.log(globalUpdateCounter + "    Marked the organization Slettet in the [brreg_enheter_alle] table");
+                    console.log("    Marked the organization Slettet in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "notfound":
-                    console.log(globalUpdateCounter + "    Organization not found in the [brreg_enheter_alle] table");
+                    console.log("    Organization not found in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "Fjernet":
-                    console.log(globalUpdateCounter + "    Fjernet endringstype");
+                    console.log("    Fjernet endringstype");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 default:
-                    console.log(globalUpdateCounter + "    Unknown status");
+                    console.log("    Unknown status");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, "Unknown status");
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
             }
             break;
         case "Fjernet":
-            console.log(globalUpdateCounter + " Fjernet endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
+            console.log(globalUpdateCounter + " Remaining:"+ globalToUpdateCounter  + " Fjernet endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
             markOneBrregShadowRecordResponse = await markOneBrregShadowRecord(jsonUpdate.oppdateringsid, jsonUpdate.dato, jsonUpdate.organisasjonsnummer, jsonUpdate.endringstype);
 
             switch (markOneBrregShadowRecordResponse.status) {
                 case "success":
-                    console.log(globalUpdateCounter + "    Marked the organization Fjernet in the [brreg_enheter_alle] table");
+                    console.log("    Marked the organization Fjernet in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "notfound":
-                    console.log(globalUpdateCounter + "    Organization not found in the [brreg_enheter_alle] table");
+                    console.log("    Organization not found in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "Fjernet":
-                    console.log(globalUpdateCounter + "    Fjernet endringstype");
+                    console.log("    Fjernet endringstype");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 default:
-                    console.log(globalUpdateCounter + "    Unknown status");
+                    console.log("    Unknown status");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, "Unknown status");
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
             }
             break;            
         default:
-            console.log(globalUpdateCounter + " Unknown endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
+            console.log(globalUpdateCounter + " Remaining:"+ globalToUpdateCounter  + " Unknown endringstype organisasjonsnummer=" + jsonUpdate.organisasjonsnummer);
             markOneBrregShadowRecordResponse = await markOneBrregShadowRecord(jsonUpdate.oppdateringsid, jsonUpdate.dato, jsonUpdate.organisasjonsnummer, jsonUpdate.endringstype);
 
             switch (markOneBrregShadowRecordResponse.status) {
                 case "success":
-                    console.log(globalUpdateCounter + "    Marked the organization ?Unknown? in the [brreg_enheter_alle] table");
+                    console.log("    Marked the organization ?Unknown? in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "notfound":
-                    console.log(globalUpdateCounter + "    Organization not found in the [brreg_enheter_alle] table");
+                    console.log("    Organization not found in the [brreg_enheter_alle] table");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 case "Fjernet":
-                    console.log(globalUpdateCounter + "    Fjernet endringstype");
+                    console.log("    Fjernet endringstype");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, markOneBrregShadowRecordResponse.status);
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
                 default:
-                    console.log(globalUpdateCounter + "    Unknown status");
+                    console.log("    Unknown status");
                     updateOppdatertEnhetResponse = await updateThatWeHaveProcessedTheChange(jsonUpdate.oppdateringsid, "Unknown status");
                     logThatWeHaveProcessedTheChange(updateOppdatertEnhetResponse.status);
                     break;
@@ -625,19 +625,20 @@ async function updateOneBrregShadowDatabaseRecord(jsonUpdate: IOppdaterteEnheter
 
 
 // * 4. for all the changes in the oppdaterteEnheter table: update the brregEnheterAlle table (delete, add or update)
-async function updateBrregShadowDatabaseWithChanges(recordsToProcess: number) {
+async function updateBrregShadowDatabaseWithChanges(maxRecordsToProcess: number) {
 
 
     while (true) {
 
         try {
             //query to select 10 unprocessed records from oppdaterteenheter table
-            const query = `SELECT * FROM oppdaterteenheter WHERE urb_processed IS NULL LIMIT ${recordsToProcess}`;
+            const query = `SELECT * FROM oppdaterteenheter WHERE urb_processed IS NULL LIMIT ${maxRecordsToProcess}`;
             const oppdaterteEnheter = await pool.query(query);
             if (oppdaterteEnheter.rowCount === 0) {
                 break;
             }
 
+            globalToUpdateCounter = await countRecordsToUpdate();
             for (const enhet of oppdaterteEnheter.rows) {
                 await updateOneBrregShadowDatabaseRecord(enhet);
             }
@@ -648,6 +649,20 @@ async function updateBrregShadowDatabaseWithChanges(recordsToProcess: number) {
 
 }
 
+async function countRecordsToUpdate() : Promise<number> {
+
+    let totalRecordsToUpdate = -1;
+
+    try {
+        const query = `SELECT COUNT(*) FROM oppdaterteenheter WHERE urb_processed IS NULL`;
+        const totalRecordsToUpdate = await pool.query(query);
+
+    } catch (err: any) {
+        console.error("Error in countRecordsToUpdate: ", err.stack);
+    }
+
+    return totalRecordsToUpdate;
+}
 
 
 async function main() {
