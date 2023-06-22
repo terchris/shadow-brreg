@@ -33,7 +33,7 @@ echo "DATABASE_NAME=$DATABASE_NAME"
 
 
 echo "1. Install git and cron"
-apk add git apk-cron postgresql-client py3-pip
+apk add git apk-cron postgresql-client py3-pip procmail
 # libreoffice is huge, but needed to convert xlsx to csv
 # apk add py3-pip
 # pip install xlsx2csv
