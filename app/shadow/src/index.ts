@@ -15,6 +15,7 @@ import pgFormat from "pg-format";
 import axios from 'axios';
 import * as dotenv from 'dotenv';
 import _ from 'lodash';
+import { QueryResult } from 'pg';
 
 import { IBrregEnheterAlle, IOppdaterteEnheter } from './typedefinitions';
 
@@ -655,7 +656,8 @@ async function countRecordsToUpdate() : Promise<number> {
 
     try {
         const query = `SELECT COUNT(*) FROM oppdaterteenheter WHERE urb_processed IS NULL`;
-        const totalRecordsToUpdate = await pool.query(query);
+        const result: QueryResult<any> = await pool.query(query);
+        totalRecordsToUpdate = parseInt(result.rows[0].count);
 
     } catch (err: any) {
         console.error("Error in countRecordsToUpdate: ", err.stack);

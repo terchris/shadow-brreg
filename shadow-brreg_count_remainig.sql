@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM oppdaterteenheter WHERE urb_processed IS NULL
