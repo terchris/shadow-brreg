@@ -1,5 +1,6 @@
 # start this with docker compose up -d
 version: '3.8'
+
 services:
   db:
     container_name: shadow-brreg
@@ -8,13 +9,13 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    expose:
-      - "5433"
     ports:
-      - '5433:5433'
+      - '5433:5432'
     volumes:
-      - db:/var/lib/postgresql/data
-    command: -p 5433
+      - shadow-brreg-database-volume:/var/lib/postgresql/data
+    networks:
+      - urbalurba-network
+
   app:
     container_name: shadow-app
     image: node:lts-alpine
@@ -22,7 +23,7 @@ services:
       - db
     environment:
       - DATABASE_HOST=db
-      - DATABASE_PORT=5433
+      - DATABASE_PORT=5432
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
       - DATABASE_NAME=importdata
@@ -34,21 +35,16 @@ services:
         "-c",
         "wget -O shadow-init.sh https://raw.githubusercontent.com/terchris/shadow-brreg/main/shadow-init_json.sh && chmod +x shadow-init.sh && ./shadow-init.sh"
       ]
-  pgadmin:
-    image: dpage/pgadmin4
-    ports:
-      - "5051:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: postgres@mamma.no
-      PGADMIN_DEFAULT_PASSWORD: postgres
-    volumes:
-      - app:/var/lib/pgadmin
-    restart: unless-stopped
+    networks:
+      - urbalurba-network
 
 volumes:
-  db:
+  shadow-brreg-database-volume:
     driver: local
   app:
     driver: local
 
+networks:
+  urbalurba-network:
+    external: true
 # to connect to the container: docker exec -ti shadow-app sh 
