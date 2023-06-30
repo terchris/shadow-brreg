@@ -1,1 +1,55 @@
-..
+
+shadow-cron.sh started
+Database ready, starting shadow app
+last change 21jun23: added error for debugging
+All database variables are set
+Testing db connection ... dateNow:  2023-06-30T13:06:00.772Z
+Database connection is ok
+Getting the previous date of updates
+Last update date: 2023-06-30T13:00:12.895Z
+Getting all updates since last update date and storing them in the database
+-Reading page 0 of 1 from brreg API
+Is changed must be updated (1) [925245410]  Dato:2023-06-30T13:05:11.560Z Endringstype:Endring
+Is changed must be updated (2) [931673084]  Dato:2023-06-30T13:05:12.804Z Endringstype:Ny
+Is changed must be updated (3) [997595165]  Dato:2023-06-30T13:05:12.804Z Endringstype:Endring
+Is changed must be updated (4) [989501003]  Dato:2023-06-30T13:05:12.804Z Endringstype:Endring
+Is changed must be updated (5) [981323122]  Dato:2023-06-30T13:05:12.804Z Endringstype:Endring
+Is changed must be updated (6) [926120816]  Dato:2023-06-30T13:05:12.804Z Endringstype:Endring
+Is changed must be updated (7) [977143330]  Dato:2023-06-30T13:05:12.804Z Endringstype:Endring
+Is changed must be updated (8) [931673173]  Dato:2023-06-30T13:05:12.804Z Endringstype:Ny
+--Added 8 changes to oppdaterteEnheter table
+update shadow database with changes
+1 Remaining:8 Endring endringstype organisasjonsnummer=925245410
+    Updated the [brreg_enheter_alle] table
+   --- Updated the [oppdaterte_enheter] table
+2 Remaining:8 Ny endringstype organisasjonsnummer=931673084
+    Created the organization in the [brreg_enheter_alle] table
+   --- Updated the [oppdaterte_enheter] table
+3 Remaining:8 Endring endringstype organisasjonsnummer=997595165
+    Updated the [brreg_enheter_alle] table
+   --- Updated the [oppdaterte_enheter] table
+4 Remaining:8 Endring endringstype organisasjonsnummer=989501003
+    Updated the [brreg_enheter_alle] table
+   --- Updated the [oppdaterte_enheter] table
+5 Remaining:8 Endring endringstype organisasjonsnummer=981323122
+    Updated the [brreg_enheter_alle] table
+   --- Updated the [oppdaterte_enheter] table
+6 Remaining:8 Endring endringstype organisasjonsnummer=926120816
+    Updated the [brreg_enheter_alle] table
+   --- Updated the [oppdaterte_enheter] table
+7 Remaining:8 Endring endringstype organisasjonsnummer=977143330
+    Updated the [brreg_enheter_alle] table
+   --- Updated the [oppdaterte_enheter] table
+8 Remaining:8 Ny endringstype organisasjonsnummer=931673173
+    Created the organization in the [brreg_enheter_alle] table
+   --- Updated the [oppdaterte_enheter] table
+
+Done for now
+shadow-cron.sh finished
+
+
+---- 
+calculate x% and change so that the log for an update is written on one line. 
+
+Change this to:
+1/8 (x %) [925245410] Endring - brreg_enheter_alle=updated oppdaterte_enheter=Updated
